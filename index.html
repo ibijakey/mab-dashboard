@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MoMo MAB Performance Report — May 2026</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0A1628;
+    --navy-mid: #1B2E4B;
+    --navy-light: #243751;
+    --yellow: #FFCB00;
+    --white: #ffffff;
+    --border: #e8ecf2;
+    --muted: #8899bb;
+    --green: #1a7a3c;
+    --red: #c62828;
+    --amber: #9a7300;
+  }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: #f0f3f8;
+    color: var(--navy);
+    min-height: 100vh;
+  }
+
+  /* ── NAV ── */
+  .nav {
+    background: var(--navy);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 28px;
+    border-bottom: 3px solid var(--yellow);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+  }
+  .nav-brand { display: flex; align-items: center; gap: 10px; padding: 12px 0; }
+  .nav-brand-title { font-size: 13px; font-weight: 500; color: #fff; }
+  .nav-brand-sub { font-size: 11px; color: var(--muted); }
+  .nav-tabs { display: flex; gap: 2px; }
+  .nav-tab {
+    padding: 14px 20px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--muted);
+    cursor: pointer;
+    border: none;
+    background: none;
+    transition: color 0.2s, background 0.2s;
+    letter-spacing: 0.3px;
+    position: relative;
+  }
+  .nav-tab:hover { color: #fff; background: rgba(255,255,255,0.05); }
+  .nav-tab.active { color: var(--yellow); }
+  .nav-tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0; right: 0;
+    height: 3px;
+    background: var(--yellow);
+  }
+  .nav-meta { font-size: 11px; color: var(--muted); }
+
+  /* ── PAGE WRAPPER ── */
+  .page { display: none; max-width: 1100px; margin: 24px auto; padding: 0 16px 40px; }
+  .page.active { display: block; }
+
+  /* ── REPORT CARD ── */
+  .report { background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 4px rgba(10,22,40,0.08), 0 4px 16px rgba(10,22,40,0.06); }
+
+  /* ── HEADER ── */
+  .rpt-header { background: var(--navy); padding: 18px 28px 16px; display: flex; justify-content: space-between; align-items: center; }
+  .rpt-header h1 { font-size: 18px; font-weight: 500; color: #fff; }
+  .rpt-header p  { font-size: 11px; color: var(--muted); margin-top: 3px; }
+  .rpt-header-right { text-align: right; }
+  .rpt-header-right .period  { font-size: 11px; color: var(--muted); }
+  .rpt-header-right .edition { font-size: 13px; color: var(--yellow); font-weight: 500; margin-top: 2px; }
+  .yellow-rule { height: 3px; background: var(--yellow); }
+
+  /* ── DISCLAIMER ── */
+  .disclaimer { background: #fffbef; border-left: 3px solid var(--yellow); padding: 10px 20px; display: flex; align-items: center; gap: 10px; font-size: 12px; color: #5a4a00; border-bottom: 1px solid #f0dfa0; }
+
+  /* ── KPI STRIP ── */
+  .kpi-strip { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 1px solid var(--border); }
+  .kpi-card { padding: 16px 20px 14px; border-right: 1px solid var(--border); display: flex; flex-direction: column; }
+  .kpi-card:last-child { border-right: none; }
+  .kpi-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.9px; height: 28px; display: flex; align-items: flex-start; line-height: 1.4; }
+  .kpi-value { font-size: 30px; font-weight: 500; color: var(--navy); line-height: 1; height: 36px; display: flex; align-items: center; }
+  .kpi-sub   { font-size: 12px; height: 20px; display: flex; align-items: center; }
+  .kpi-bar   { height: 4px; background: var(--border); border-radius: 2px; margin-top: 10px; }
+  .kpi-bar-fill { height: 4px; border-radius: 2px; }
+  .up      { color: var(--green); }
+  .down    { color: var(--red); }
+  .neutral { color: var(--muted); }
+
+  /* ── DECISIONS ── */
+  .decisions { background: var(--navy); padding: 20px 28px 22px; }
+  .decisions-label { font-size: 10px; font-weight: 500; color: var(--yellow); text-transform: uppercase; letter-spacing: 1.2px; display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+  .decisions-label::before { content:''; display:block; width:3px; height:14px; background:var(--yellow); border-radius:2px; }
+  .decisions-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .dc { border-left: 3px solid transparent; border-radius: 0 6px 6px 0; padding: 13px 15px; }
+  .dc.urgent { background: #1f1020; border-color: #e53935; }
+  .dc.watch  { background: #1e1a08; border-color: var(--yellow); }
+  .dc.growth { background: #0d1f12; border-color: #2e9e50; }
+  .dc-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 7px; }
+  .dc-badge { font-size: 10px; font-weight: 500; padding: 2px 8px; border-radius: 3px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .badge-u { background: #e53935; color: #fff; }
+  .badge-w { background: var(--yellow); color: var(--navy); }
+  .badge-g { background: #2e9e50; color: #fff; }
+  .dc-mkt   { font-size: 10.5px; color: var(--muted); font-weight: 500; }
+  .dc-title { font-size: 13px; font-weight: 500; color: #fff; margin-bottom: 5px; line-height: 1.3; }
+  .dc-body  { font-size: 11px; color: #adbbd4; line-height: 1.5; }
+  .dc-chip  { display: inline-block; margin-top: 8px; font-size: 11px; font-weight: 500; padding: 2px 9px; border-radius: 3px; background: rgba(255,203,0,0.12); color: var(--yellow); }
+
+  /* ── PORTFOLIO ROW ── */
+  .portfolio-row { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid var(--border); }
+  .port-panel { padding: 18px 24px; border-right: 1px solid var(--border); }
+  .port-panel:last-child { border-right: none; }
+
+  /* ── PANEL TITLES ── */
+  .panel-title { font-size: 12px; font-weight: 500; color: var(--navy); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+  .panel-rule  { width: 3px; height: 14px; background: var(--yellow); border-radius: 2px; flex-shrink: 0; }
+
+  /* ── SEGMENTATION ── */
+  .seg-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .seg-card { border-radius: 6px; padding: 12px 13px; border: 1px solid transparent; }
+  .seg-card.scale    { background: #f0f9f3; border-color: #b8dfc6; border-top: 3px solid #2e9e50; }
+  .seg-card.build    { background: #fffbef; border-color: #f0dfa0; border-top: 3px solid var(--yellow); }
+  .seg-card.recovery { background: #fef2f2; border-color: #f5c6c6; border-top: 3px solid #e53935; }
+  .seg-header { display: flex; align-items: center; gap: 6px; margin-bottom: 9px; }
+  .seg-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .seg-dot.scale    { background: #2e9e50; }
+  .seg-dot.build    { background: var(--yellow); }
+  .seg-dot.recovery { background: #e53935; }
+  .seg-label { font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.9px; }
+  .seg-label.scale    { color: #1a6e34; }
+  .seg-label.build    { color: var(--amber); }
+  .seg-label.recovery { color: #a82020; }
+  .seg-col-head { display: grid; grid-template-columns: 54% 23% 23%; font-size: 9.5px; color: #aaa; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 3px; }
+  .seg-col-head span:not(:first-child) { text-align: right; }
+  .seg-mkt-table { width: 100%; border-collapse: collapse; }
+  .seg-mkt-table tr { border-bottom: 0.5px solid rgba(0,0,0,0.07); }
+  .seg-mkt-table tr:last-child { border-bottom: none; }
+  .seg-mkt-table td { padding: 4px 0; font-size: 11.5px; vertical-align: middle; font-variant-numeric: tabular-nums; }
+  .seg-mkt-table td:first-child  { font-weight: 500; color: var(--navy); width: 54%; }
+  .seg-mkt-table td:nth-child(2) { text-align: right; width: 23%; font-size: 11px; color: #555; }
+  .seg-mkt-table td:last-child   { text-align: right; width: 23%; font-size: 11px; font-weight: 500; }
+  .seg-mkt-table td.pos { color: var(--green); }
+  .seg-mkt-table td.neg { color: var(--red); }
+  .seg-total { margin-top: 8px; padding-top: 6px; border-top: 1px solid rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center; }
+  .seg-total-label { font-size: 10px; color: #888; text-transform: uppercase; letter-spacing: 0.6px; }
+  .seg-total-val { font-size: 13px; font-weight: 500; }
+
+  /* ── LEGEND ── */
+  .legend-row { display: flex; gap: 14px; margin-bottom: 8px; font-size: 11px; color: #666; flex-wrap: wrap; }
+  .legend-dot { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 3px; vertical-align: middle; }
+
+  /* ── MARKETS ── */
+  .markets { padding: 16px 24px 18px; border-bottom: 1px solid var(--border); }
+  .mkt-table { width: 100%; border-collapse: collapse; font-size: 12px; table-layout: fixed; }
+  .mkt-table th { font-size: 10px; text-transform: uppercase; letter-spacing: 0.7px; color: var(--muted); font-weight: 500; padding: 3px 6px; border-bottom: 1px solid var(--border); text-align: right; white-space: nowrap; }
+  .mkt-table th:first-child { text-align: left; }
+  .mkt-table td { padding: 5px 6px; border-bottom: 0.5px solid #f0f3f8; vertical-align: middle; font-variant-numeric: tabular-nums; }
+  .mkt-table td:not(:first-child) { text-align: right; }
+  .mkt-table tr:hover td { background: #fffbef; }
+  .rank-badge { display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; background: var(--navy); color: var(--yellow); border-radius: 3px; font-size: 9px; font-weight: 500; }
+  .rank-star  { display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; background: var(--yellow); color: var(--navy); border-radius: 3px; font-size: 11px; }
+  .mkt-name { font-weight: 500; color: var(--navy); }
+  .budget-over { color: var(--green); font-weight: 500; }
+  .budget-near { color: var(--amber); font-weight: 500; }
+  .budget-miss { color: var(--red); font-weight: 500; }
+  .mom-pos { color: var(--green); font-weight: 500; }
+  .mom-neg { color: var(--red); font-weight: 500; }
+  .seg-pip { display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 4px; vertical-align: middle; }
+  .total-row td { font-weight: 500; border-top: 1.5px solid var(--navy); background: #f4f6fa; padding: 5px 6px; }
+
+  /* ── DETAIL ── */
+  .detail { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--border); }
+  .detail-panel { padding: 14px 24px 18px; border-right: 1px solid var(--border); }
+  .detail-panel:last-child { border-right: none; }
+  .impact-row { display: flex; align-items: center; gap: 7px; padding: 4px 7px; border-radius: 4px; margin-bottom: 3px; font-size: 11.5px; }
+  .impact-row.neg { background: #fef2f2; }
+  .impact-row.pos { background: #f0f9f3; }
+  .impact-market { flex: 1; font-weight: 500; color: var(--navy); }
+  .impact-val.neg { color: var(--red); font-weight: 500; font-variant-numeric: tabular-nums; }
+  .impact-val.pos { color: var(--green); font-weight: 500; font-variant-numeric: tabular-nums; }
+  .impact-pct { font-size: 10.5px; color: #888; margin-left: 3px; }
+  .sub-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.8px; color: var(--muted); font-weight: 500; margin: 6px 0 4px; }
+  .contrib-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+  .contrib-name { font-size: 11.5px; font-weight: 500; width: 68px; flex-shrink: 0; color: var(--navy); }
+  .contrib-bar-wrap { flex: 1; height: 18px; background: var(--border); border-radius: 3px; overflow: hidden; }
+  .contrib-bar-fill { height: 100%; border-radius: 3px; display: flex; align-items: center; justify-content: flex-end; padding-right: 6px; }
+
+  /* ── BODY ROW (page 2) ── */
+  .body-row { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid var(--border); }
+  .body-panel { padding: 18px 24px; border-right: 1px solid var(--border); }
+  .body-panel:last-child { border-right: none; }
+  .trend-section { padding: 18px 24px; border-bottom: 1px solid var(--border); }
+
+  /* ── FOOTER ── */
+  .rpt-footer { background: var(--navy); padding: 10px 28px; display: flex; justify-content: space-between; align-items: center; }
+  .rpt-footer-left  { font-size: 11px; color: var(--muted); }
+  .rpt-footer-right { font-size: 11px; color: var(--muted); }
+  .mtn-tag { color: var(--yellow); font-weight: 500; }
+
+  /* ── PRINT ── */
+  @media print {
+    .nav { display: none; }
+    .page { display: block !important; margin: 0; padding: 0; page-break-after: always; }
+    body { background: #fff; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-brand">
+    <div>
+      <div class="nav-brand-title">MoMo by MTN · Performance Report</div>
+      <div class="nav-brand-sub">End May 2026 · 13 Operating Companies</div>
+    </div>
+  </div>
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="showPage('p1',this)">MAB Overview</button>
+    <button class="nav-tab" onclick="showPage('p2',this)">Unique Payers</button>
+  </div>
+  <div class="nav-meta">Confidential · Board Report</div>
+</nav>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- PAGE 1: MAB OVERVIEW                              -->
+<!-- ══════════════════════════════════════════════════ -->
+<div id="p1" class="page active">
+<div class="report">
+
+  <div class="rpt-header">
+    <div>
+      <h1>MAB Performance Report</h1>
+      <p>Monthly Active Base · MoMo by MTN · 13 Operating Companies</p>
+    </div>
+    <div class="rpt-header-right">
+      <div class="period">Reporting period</div>
+      <div class="edition">End May 2026</div>
+    </div>
+  </div>
+  <div class="yellow-rule"></div>
+
+  <div class="kpi-strip">
+    <div class="kpi-card">
+      <div class="kpi-label">Group MAB</div>
+      <div class="kpi-value">2.346M</div>
+      <div class="kpi-sub up">▲ +110.6K (+4.9%) MoM</div>
+      <div class="kpi-bar"><div class="kpi-bar-fill" style="width:84%;background:var(--yellow);"></div></div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Budget achievement</div>
+      <div class="kpi-value">84%</div>
+      <div class="kpi-sub down">▼ –447.8K vs 2.793M target</div>
+      <div class="kpi-bar"><div class="kpi-bar-fill" style="width:84%;background:var(--red);"></div></div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Markets growing MoM</div>
+      <div class="kpi-value">6 / 13</div>
+      <div class="kpi-sub down">Weak breadth — 46% of portfolio</div>
+      <div class="kpi-bar"><div class="kpi-bar-fill" style="width:46%;background:var(--red);"></div></div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Markets above budget</div>
+      <div class="kpi-value">1 / 13</div>
+      <div class="kpi-sub down">Only Rwanda ≥ 100%</div>
+      <div class="kpi-bar"><div class="kpi-bar-fill" style="width:8%;background:var(--red);"></div></div>
+    </div>
+  </div>
+
+  <div class="decisions">
+    <div class="decisions-label">Decisions required — June 2026</div>
+    <div class="decisions-grid">
+      <div class="dc urgent">
+        <div class="dc-top"><span class="dc-badge badge-u">Urgent</span><span class="dc-mkt">Nigeria</span></div>
+        <div class="dc-title">Emergency recovery plan required</div>
+        <div class="dc-body">MAB down 98.6% in 3 months (129K → 1.8K). Strategic pivot needed.</div>
+        <span class="dc-chip">1.4% of 127K budget</span>
+      </div>
+      <div class="dc urgent">
+        <div class="dc-top"><span class="dc-badge badge-u">Urgent</span><span class="dc-mkt">CDI · Benin · S. Sudan</span></div>
+        <div class="dc-title">Commission activation diagnostic</div>
+        <div class="dc-body">Three markets chronically below 61% of budget with flat growth. Not recovering naturally — assign dedicated task force.</div>
+        <span class="dc-chip">Combined gap: –313K vs budget</span>
+      </div>
+      <div class="dc watch">
+        <div class="dc-top"><span class="dc-badge badge-w">Validate</span><span class="dc-mkt">Uganda</span></div>
+        <div class="dc-title">Confirm Uganda's +52.5% surge</div>
+        <div class="dc-body">Largest absolute mover in portfolio (+81.8K MoM). Origin unclear — retention plan must be in place this month before any reversal.</div>
+        <span class="dc-chip">+81.8K MoM · Now 95% of budget</span>
+      </div>
+      <div class="dc watch">
+        <div class="dc-top"><span class="dc-badge badge-w">Watch</span><span class="dc-mkt">Zambia · Liberia · Eswatini</span></div>
+        <div class="dc-title">Halt mid-tier market decline</div>
+        <div class="dc-body">All three declining MoM (–4% to –11%). Zambia most material at 12.3% of portfolio. Churn analysis and reactivation needed in June.</div>
+        <span class="dc-chip">–18.2K combined MoM loss</span>
+      </div>
+      <div class="dc growth">
+        <div class="dc-top"><span class="dc-badge badge-g">Sustain</span><span class="dc-mkt">Rwanda · Cameroon · Ghana</span></div>
+        <div class="dc-title">Protect the core growth engine</div>
+        <div class="dc-body">58% of portfolio MAB, all growing. Rwanda only market above budget. Protect agent incentive structures into Q3 planning.</div>
+        <span class="dc-chip">+38.2K combined MoM gain</span>
+      </div>
+      <div class="dc growth">
+        <div class="dc-top"><span class="dc-badge badge-g">Target</span><span class="dc-mkt">Group</span></div>
+        <div class="dc-title">Set breadth target: 9/13 growing</div>
+        <div class="dc-body">Only 6/13 markets growing makes portfolio fragile. CDI (+0.3%) and Benin (+1.8%) are closest to inflection — most actionable in June.</div>
+        <span class="dc-chip">Current: 6/13 · Target: 9/13</span>
+      </div>
+    </div>
+  </div>
+  <div class="yellow-rule"></div>
+
+  <div class="portfolio-row">
+    <div class="port-panel">
+      <div class="panel-title"><span class="panel-rule"></span>Portfolio classification — May 2026</div>
+      <div class="seg-grid">
+        <div class="seg-card scale">
+          <div class="seg-header"><span class="seg-dot scale"></span><span class="seg-label scale">Scale markets</span></div>
+          <div class="seg-col-head"><span>Market</span><span>Ach%</span><span>MoM%</span></div>
+          <table class="seg-mkt-table">
+            <tr><td>Rwanda</td>  <td>103%</td><td class="pos">+2.0%</td></tr>
+            <tr><td>Cameroon</td><td>95%</td> <td class="pos">+5.0%</td></tr>
+            <tr><td>Ghana</td>   <td>98%</td> <td class="pos">+2.8%</td></tr>
+          </table>
+          <div class="seg-total"><span class="seg-total-label">MAB share</span><span class="seg-total-val" style="color:#1a6e34;">58.2%</span></div>
+        </div>
+        <div class="seg-card build">
+          <div class="seg-header"><span class="seg-dot build"></span><span class="seg-label build">Build markets</span></div>
+          <div class="seg-col-head"><span>Market</span><span>Ach%</span><span>MoM%</span></div>
+          <table class="seg-mkt-table">
+            <tr><td>Uganda</td><td>95%</td><td class="pos">+52.5%</td></tr>
+            <tr><td>CDI</td>   <td>61%</td><td class="pos">+0.3%</td></tr>
+            <tr><td>Benin</td> <td>55%</td><td class="pos">+1.8%</td></tr>
+          </table>
+          <div class="seg-total"><span class="seg-total-label">MAB share</span><span class="seg-total-val" style="color:#9a7300;">26.1%</span></div>
+        </div>
+        <div class="seg-card recovery">
+          <div class="seg-header"><span class="seg-dot recovery"></span><span class="seg-label recovery">Recovery markets</span></div>
+          <div class="seg-col-head"><span>Market</span><span>Ach%</span><span>MoM%</span></div>
+          <table class="seg-mkt-table">
+            <tr><td>Nigeria</td><td>1%</td>  <td class="neg">–83.4%</td></tr>
+            <tr><td>Zambia</td> <td>90%</td> <td class="neg">–4.2%</td></tr>
+            <tr><td>Liberia</td><td>82%</td> <td class="neg">–10.5%</td></tr>
+          </table>
+          <div class="seg-total"><span class="seg-total-label">MAB share</span><span class="seg-total-val" style="color:#a82020;">13.6%</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="port-panel">
+      <div class="panel-title"><span class="panel-rule"></span>Budget achievement by market — May 2026</div>
+      <div class="legend-row">
+        <span><span class="legend-dot" style="background:#1a7a3c;"></span>≥ 100%</span>
+        <span><span class="legend-dot" style="background:var(--yellow);"></span>80–99%</span>
+        <span><span class="legend-dot" style="background:#e53935;"></span>&lt; 80%</span>
+      </div>
+      <div style="position:relative;width:100%;height:228px;">
+        <canvas id="budgetChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="markets">
+    <div class="panel-title" style="margin-bottom:10px;"><span class="panel-rule"></span>Market detail — MAB30</div>
+    <table class="mkt-table">
+      <thead>
+        <tr>
+          <th style="text-align:left;width:136px;">Market</th>
+          <th style="width:58px;text-align:center;">Trend</th>
+          <th style="width:80px;">MAB30</th>
+          <th style="width:72px;">Budget</th>
+          <th style="width:44px;">Ach%</th>
+          <th style="width:48px;">MoM%</th>
+        </tr>
+      </thead>
+      <tbody id="mktTableBody"></tbody>
+    </table>
+  </div>
+
+  <div class="detail">
+    <div class="detail-panel">
+      <div class="panel-title"><span class="panel-rule"></span>MoM impact — May vs Apr</div>
+      <div class="sub-label">Growth drivers</div>
+      <div id="posImpact"></div>
+      <div class="sub-label">Drag on portfolio</div>
+      <div id="negImpact"></div>
+    </div>
+    <div class="detail-panel">
+      <div class="panel-title"><span class="panel-rule"></span>Top 5 by portfolio share</div>
+      <div id="contribList"></div>
+    </div>
+  </div>
+
+  <div class="rpt-footer">
+    <div class="rpt-footer-left">MAB Performance · Monthly Board Report · Confidential</div>
+    <div class="rpt-footer-right"><span class="mtn-tag">MoMo by MTN</span> · End May 2026 · Page 1 of 2</div>
+  </div>
+
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- PAGE 2: UNIQUE PAYERS                             -->
+<!-- ══════════════════════════════════════════════════ -->
+<div id="p2" class="page">
+<div class="report">
+
+  <div class="rpt-header">
+    <div>
+      <h1>Monthly Active Users — Unique Payers</h1>
+      <p>Monthly Active Base · MoMo by MTN · 12 Operating Companies</p>
+    </div>
+    <div class="rpt-header-right">
+      <div class="period">Reporting period</div>
+      <div class="edition">April 2026</div>
+    </div>
+  </div>
+  <div class="yellow-rule"></div>
+
+  <div class="disclaimer">
+    <i class="ti ti-info-circle" style="font-size:15px;color:#c69500;flex-shrink:0;"></i>
+    <span><strong>Data notice:</strong> This page reflects April 2026 actuals. May 2026 Unique Payers data will be available for analysis from mid-June 2026.</span>
+  </div>
+
+  <div class="kpi-strip">
+    <div class="kpi-card">
+      <div class="kpi-label">Group unique payers</div>
+      <div class="kpi-value">14.27M</div>
+      <div class="kpi-sub up">▲ +676.9K vs Dec '25 (+5.0%)</div>
+      <div class="kpi-bar"><div class="kpi-bar-fill" style="width:100%;background:var(--yellow);"></div></div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">YoY growth (Dec 24–25)</div>
+      <div class="kpi-value">+22.7%</div>
+      <div class="kpi-sub up">▲ +2.52M net adds</div>
+      <div class="kpi-bar"><div class="kpi-bar-fill" style="width:100%;background:#1a7a3c;"></div></div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">2-year CAGR</div>
+      <div class="kpi-value">21.0%</div>
+      <div class="kpi-sub neutral">Dec '24 → Apr '26</div>
+      <div class="kpi-bar"><div class="kpi-bar-fill" style="width:75%;background:var(--yellow);"></div></div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Markets growing (Dec 25–Apr 26)</div>
+      <div class="kpi-value">7 / 12</div>
+      <div class="kpi-sub down">NI, BE, ES, LI, RSA declining</div>
+      <div class="kpi-bar"><div class="kpi-bar-fill" style="width:58%;background:var(--red);"></div></div>
+    </div>
+  </div>
+
+  <div class="trend-section">
+    <div class="panel-title"><span class="panel-rule"></span>Group unique payers — monthly trend Jan 2024 to Apr 2026</div>
+    <div class="legend-row">
+      <span><span class="legend-dot" style="background:#0A1628;"></span>2024</span>
+      <span><span class="legend-dot" style="background:#FFCB00;"></span>2025</span>
+      <span><span class="legend-dot" style="background:#1a7a3c;"></span>2026</span>
+    </div>
+    <div style="position:relative;width:100%;height:180px;">
+      <canvas id="trendChart"></canvas>
+    </div>
+  </div>
+
+  <div class="body-row">
+    <div class="body-panel">
+      <div class="panel-title"><span class="panel-rule"></span>Market performance — unique payers</div>
+      <table class="mkt-table">
+        <thead>
+          <tr>
+            <th style="text-align:left;width:90px;">Market</th>
+            <th style="width:72px;">Apr '26</th>
+            <th style="width:58px;">YoY% 24–25</th>
+            <th style="width:64px;">vs Dec '25</th>
+            <th style="width:46px;">CAGR%</th>
+          </tr>
+        </thead>
+        <tbody id="upTableBody"></tbody>
+      </table>
+    </div>
+    <div class="body-panel">
+      <div class="panel-title"><span class="panel-rule"></span>YoY growth % by market — Dec '24 to Dec '25</div>
+      <div class="legend-row">
+        <span><span class="legend-dot" style="background:#1a7a3c;"></span>Growth</span>
+        <span><span class="legend-dot" style="background:#e53935;"></span>Decline</span>
+      </div>
+      <div style="position:relative;width:100%;height:280px;">
+        <canvas id="yoyChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="rpt-footer">
+    <div class="rpt-footer-left">Monthly Active Users · Unique Payers · April 2026 · Confidential</div>
+    <div class="rpt-footer-right"><span class="mtn-tag">MoMo by MTN</span> · Page 2 of 2</div>
+  </div>
+
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+/* ── PAGE SWITCHER ── */
+function showPage(id, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ══════════════════════════════════
+   PAGE 1 DATA & CHARTS
+══════════════════════════════════ */
+const markets=['Rwanda','Cameroon','Ghana','Zambia','Uganda','CDI','Benin','DRC','S.Africa','Liberia','Eswatini','S.Sudan','Nigeria'];
+const feb=[632875,379556,277681,295271,117243,192660,126111,44906,31902,29677,23609,4306,129329];
+const mar=[647251,367790,279863,279779,144915,188237,130062,42547,32470,31906,23628,4657,69627];
+const apr=[656732,379556,284979,300522,155583,184265,135911,44549,22476,31589,23301,4724,10724];
+const may=[670010,398392,292931,288024,237354,184770,138413,46995,32886,28287,20862,4806,1776];
+const budget=[648065,417702,300000,320000,250000,305000,250020,59000,38973,34623,30959,12000,127000];
+const groupTrend=[2255935,2242732,2234911,2345506];
+const segColor={'Rwanda':'#1a7a3c','Cameroon':'#1a7a3c','Ghana':'#1a7a3c','Uganda':'#c69500','CDI':'#c69500','Benin':'#c69500','Nigeria':'#e53935','Zambia':'#e53935','Liberia':'#e53935'};
+
+function fmt(n){return n.toLocaleString();}
+function momPct(a,b){return((b-a)/a*100).toFixed(1);}
+function achPct(v,b){return Math.round(v/b*100);}
+
+function sparkline(data){
+  const w=54,h=22,pad=3,mn=Math.min(...data),mx=Math.max(...data),range=mx-mn||1;
+  const pts=data.map((v,i)=>{const x=pad+(i/(data.length-1))*(w-pad*2);const y=h-pad-((v-mn)/range)*(h-pad*2);return`${x.toFixed(1)},${y.toFixed(1)}`;});
+  const c=data[data.length-1]>=data[0]?'#1a7a3c':'#e53935';
+  const[lx,ly]=pts[pts.length-1].split(',');
+  return`<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" style="overflow:visible;"><polyline points="${pts.join(' ')}" fill="none" stroke="${c}" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/><circle cx="${lx}" cy="${ly}" r="2.5" fill="${c}"/></svg>`;
+}
+
+const ranked=markets.map((m,i)=>({m,i})).sort((a,b)=>may[b.i]-may[a.i]);
+const tbody=document.getElementById('mktTableBody');
+ranked.forEach((row,ri)=>{
+  const i=row.i,ach=achPct(may[i],budget[i]),mp=parseFloat(momPct(apr[i],may[i]));
+  const achClass=ach>=100?'budget-over':ach>=80?'budget-near':'budget-miss';
+  const momClass=mp>=0?'mom-pos':'mom-neg';
+  const rankEl=ri===0?'<span class="rank-star">★</span>':`<span class="rank-badge">${ri+1}</span>`;
+  const valStyle=markets[i]==='Nigeria'?'color:#e53935;font-weight:500;':'font-weight:500;';
+  const pip=segColor[markets[i]]||'#b0b8c8';
+  const tr=document.createElement('tr');
+  tr.innerHTML=`<td>${rankEl} <span class="seg-pip" style="background:${pip};"></span><span class="mkt-name">${markets[i]}</span></td><td style="text-align:center;">${sparkline([feb[i],mar[i],apr[i],may[i]])}</td><td style="${valStyle}">${fmt(may[i])}</td><td style="color:#8899bb;">${fmt(budget[i])}</td><td><span class="${achClass}">${ach}%</span></td><td class="${momClass}">${(mp>=0?'+':'')+mp}%</td>`;
+  tbody.appendChild(tr);
+});
+const totTr=document.createElement('tr');
+totTr.className='total-row';
+totTr.innerHTML=`<td>Group total</td><td style="text-align:center;">${sparkline(groupTrend)}</td><td>2,345,506</td><td style="color:#8899bb;">2,793,342</td><td><span class="budget-miss">84%</span></td><td class="mom-pos">+4.9%</td>`;
+tbody.appendChild(totTr);
+
+const deltas=markets.map((m,i)=>({m,d:may[i]-apr[i],pct:parseFloat(momPct(apr[i],may[i]))}));
+const pos=deltas.filter(x=>x.d>0).sort((a,b)=>b.d-a.d).slice(0,4);
+const neg=deltas.filter(x=>x.d<0).sort((a,b)=>a.d-b.d).slice(0,4);
+document.getElementById('posImpact').innerHTML=pos.map(x=>`<div class="impact-row pos"><span>↑</span><span class="impact-market">${x.m}</span><span class="impact-val pos">+${x.d.toLocaleString()}<span class="impact-pct">(+${x.pct}%)</span></span></div>`).join('');
+document.getElementById('negImpact').innerHTML=neg.map(x=>`<div class="impact-row neg"><span>↓</span><span class="impact-market">${x.m}</span><span class="impact-val neg">${x.d.toLocaleString()}<span class="impact-pct">(${x.pct}%)</span></span></div>`).join('');
+
+const top5=markets.map((m,i)=>({m,v:may[i],pct:(may[i]/2345506*100).toFixed(1)})).sort((a,b)=>b.v-a.v).slice(0,5);
+const fills=['#0A1628','#FFCB00','#0A1628','#FFCB00','#0A1628'];
+const texts=['#FFCB00','#0A1628','#FFCB00','#0A1628','#FFCB00'];
+document.getElementById('contribList').innerHTML=top5.map((d,i)=>{
+  const w=(parseFloat(d.pct)/parseFloat(top5[0].pct)*100).toFixed(0);
+  return`<div class="contrib-row"><div class="contrib-name">${i===0?'★ '+d.m:d.m}</div><div class="contrib-bar-wrap"><div class="contrib-bar-fill" style="width:${w}%;background:${fills[i]};"><span style="font-size:11px;font-weight:500;color:${texts[i]};">${d.pct}%</span></div></div></div>`;
+}).join('');
+
+const mktsSorted=markets.map((m,i)=>({m,ach:achPct(may[i],budget[i])})).sort((a,b)=>b.ach-a.ach);
+new Chart(document.getElementById('budgetChart'),{
+  type:'bar',
+  data:{labels:mktsSorted.map(x=>x.m),datasets:[{data:mktsSorted.map(x=>x.ach),backgroundColor:mktsSorted.map(x=>x.ach>=100?'#1a7a3c':x.ach>=80?'#FFCB00':'#e53935'),borderRadius:2}]},
+  options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>ctx.raw+'%'}}},scales:{x:{grid:{color:'rgba(10,22,40,0.05)'},ticks:{font:{size:10},color:'#8899bb',callback:v=>v+'%'},max:115},y:{grid:{display:false},ticks:{font:{size:10},color:'#243751'}}}}
+});
+
+/* ══════════════════════════════════
+   PAGE 2 DATA & CHARTS
+══════════════════════════════════ */
+const upNames=['Benin','DRC','CDI','Cameroon','Eswatini','Ghana','Liberia','Nigeria','S.Africa','Rwanda','Uganda','Zambia'];
+const upDec24=[1960830,129203,67300,1267123,149426,2332496,22194,8019,199613,3302163,1583053,53126];
+const upDec25=[1139543,469654,188568,2044990,171667,3147313,47432,4178,251300,3949438,2108748,69553];
+const upApr26=[1030381,476108,229900,2091143,166529,3318241,40105,467,242516,4073850,2524000,76083];
+const upCagr=[-38.4,166.6,151.9,45.7,8.5,30.3,56.0,-88.2,15.8,17.1,42.0,31.0];
+
+function fmtUp(n){return n>=1000000?(n/1000000).toFixed(2)+'M':n>=1000?(n/1000).toFixed(1)+'K':n.toLocaleString();}
+function pct(a,b){return((b-a)/a*100).toFixed(1);}
+
+const upSorted=upNames.map((n,i)=>({n,i})).sort((a,b)=>upApr26[b.i]-upApr26[a.i]);
+const upTbody=document.getElementById('upTableBody');
+upSorted.forEach(({n,i})=>{
+  const yoy=parseFloat(pct(upDec24[i],upDec25[i]));
+  const vsDec=parseFloat(pct(upDec25[i],upApr26[i]));
+  const cagr=upCagr[i];
+  const tr=document.createElement('tr');
+  tr.innerHTML=`<td><span class="mkt-name">${n}</span></td><td style="font-weight:500;">${fmtUp(upApr26[i])}</td><td class="${yoy>=0?'mom-pos':'mom-neg'}">${yoy>=0?'+':''}${yoy}%</td><td class="${vsDec>=0?'mom-pos':'mom-neg'}">${vsDec>=0?'+':''}${vsDec}%</td><td class="${cagr>=0?'mom-pos':'mom-neg'}">${cagr>=0?'+':''}${cagr}%</td>`;
+  upTbody.appendChild(tr);
+});
+const upTotTr=document.createElement('tr');
+upTotTr.className='total-row';
+upTotTr.innerHTML=`<td>Total</td><td>14.27M</td><td class="mom-pos">+22.7%</td><td class="mom-pos">+5.0%</td><td class="mom-pos">+21.0%</td>`;
+upTbody.appendChild(upTotTr);
+
+const trendLabels=['Jan-24','Feb-24','Mar-24','Apr-24','May-24','Jun-24','Jul-24','Aug-24','Sep-24','Oct-24','Nov-24','Dec-24','Jan-25','Feb-25','Mar-25','Apr-25','May-25','Jun-25','Jul-25','Aug-25','Sep-25','Oct-25','Nov-25','Dec-25','Jan-26','Feb-26','Mar-26','Apr-26'];
+const trendData=[9260133,9221467,9742789,9717012,9911599,9503183,9722792,10047239,10563605,10837914,10665891,11074546,11539540,11456318,11961145,12241278,12391735,12075941,11827921,12274308,12647183,13045892,13111490,13592384,13091171,13349927,14232356,14269323];
+new Chart(document.getElementById('trendChart'),{
+  type:'line',
+  data:{labels:trendLabels,datasets:[{data:trendData,borderWidth:2,pointRadius:trendLabels.map((l,i)=>[0,11,12,23,27].includes(i)?4:1.5),pointBackgroundColor:trendLabels.map(l=>l.includes('-26')?'#1a7a3c':l.includes('-25')?'#FFCB00':'#0A1628'),pointBorderColor:trendLabels.map(l=>l.includes('-26')?'#1a7a3c':l.includes('-25')?'#FFCB00':'#0A1628'),fill:false,tension:0.35,segment:{borderColor:ctx=>{const l=trendLabels[ctx.p1DataIndex];return l.includes('-26')?'#1a7a3c':l.includes('-25')?'#FFCB00':'#0A1628';}}}]},
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>(ctx.raw/1000000).toFixed(2)+'M'}}},scales:{x:{grid:{display:false},ticks:{font:{size:9},color:'#8899bb',maxTicksLimit:14,maxRotation:45}},y:{grid:{color:'rgba(10,22,40,0.05)'},ticks:{font:{size:10},color:'#8899bb',callback:v=>(v/1000000).toFixed(1)+'M'},min:8500000,max:15000000}}}
+});
+
+const yoyData=upNames.map((n,i)=>({n,v:parseFloat(pct(upDec24[i],upDec25[i]))})).sort((a,b)=>b.v-a.v);
+new Chart(document.getElementById('yoyChart'),{
+  type:'bar',
+  data:{labels:yoyData.map(x=>x.n),datasets:[{data:yoyData.map(x=>x.v),backgroundColor:yoyData.map(x=>x.v>=0?'#1a7a3c':'#e53935'),borderRadius:2}]},
+  options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>(ctx.raw>=0?'+':'')+ctx.raw+'%'}}},scales:{x:{grid:{color:'rgba(10,22,40,0.05)'},ticks:{font:{size:10},color:'#8899bb',callback:v=>v+'%'}},y:{grid:{display:false},ticks:{font:{size:10},color:'#243751'}}}}
+});
+</script>
+</body>
+</html>
