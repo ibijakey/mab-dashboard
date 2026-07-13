@@ -216,7 +216,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f3f8;color:var(--
   </div>
 
   <div class="markets">
-    <div class="panel-title" style="margin-bottom:10px;"><span class="panel-rule"></span>Market detail &mdash; MAB30 vs June 2026 final</div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;"><div class="panel-title" style="margin-bottom:0;"><span class="panel-rule"></span>Market detail &mdash; MAB30 vs June 2026 final</div><span style="font-size:10px;color:#8899bb;"><span style="display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;background:#FFCB00;color:#0A1628;border-radius:3px;font-size:10px;margin-right:4px;">&#9733;</span>Above annual budget</span></div>
     <table class="mkt-table">
       <thead><tr>
         <th style="text-align:left;width:148px;">Market</th>
@@ -333,7 +333,8 @@ ranked.forEach((row,ri)=>{
   const i=row.i,ach=achPct(jul[i],budget[i]),mp=parseFloat(chgPct(jun[i],jul[i]));
   const achClass=ach>=100?'budget-over':ach>=80?'budget-near':'budget-miss';
   const momClass=mp>=0?'mom-pos':'mom-neg';
-  const rankEl=ri===0?'<span class="rank-star">&#9733;</span>':`<span class="rank-badge">${ri+1}</span>`;
+  const aboveBudget=ach>=100;
+  const rankEl=aboveBudget?'<span class="rank-star">&#9733;</span>':`<span class="rank-badge">${ri+1}</span>`;
   const pip=segColor[markets[i]]||'#b0b8c8';
   const valStyle=(markets[i]==='Nigeria'||markets[i]==='Benin')?'color:#e53935;font-weight:500;':'font-weight:500;';
   const tr=document.createElement('tr');
