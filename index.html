@@ -8,8 +8,6 @@
 *{box-sizing:border-box;margin:0;padding:0;}
 :root{--navy:#0A1628;--yellow:#FFCB00;--border:#e8ecf2;--muted:#8899bb;--green:#1a7a3c;--red:#e53935;--amber:#c69500;--ltbg:#f4f6fa;}
 body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f3f8;color:var(--navy);}
-
-/* NAV */
 .nav{background:var(--navy);position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 28px;border-bottom:3px solid var(--yellow);box-shadow:0 2px 12px rgba(0,0,0,.3);}
 .nav-brand{padding:12px 0;}.nav-brand-title{font-size:13px;font-weight:500;color:#fff;}.nav-brand-sub{font-size:11px;color:var(--muted);}
 .nav-tabs{display:flex;gap:2px;}
@@ -18,13 +16,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f3f8;color:var(--
 .nav-tab.active{color:var(--yellow);}
 .nav-tab.active::after{content:'';position:absolute;bottom:-3px;left:0;right:0;height:3px;background:var(--yellow);}
 .nav-meta{font-size:11px;color:var(--muted);}
-
-/* PAGES */
 .page{display:none;max-width:1100px;margin:24px auto;padding:0 16px 40px;}
 .page.active{display:block;}
 .report{background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 1px 4px rgba(10,22,40,.08),0 4px 16px rgba(10,22,40,.06);}
-
-/* HEADER */
 .rpt-header{background:var(--navy);padding:18px 28px 16px;display:flex;justify-content:space-between;align-items:center;}
 .rpt-header h1{font-size:18px;font-weight:500;color:#fff;}
 .rpt-header p{font-size:11px;color:var(--muted);margin-top:3px;}
@@ -34,8 +28,6 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f3f8;color:var(--
 .rpt-header-right .sub{font-size:10px;color:var(--muted);margin-top:1px;}
 .yellow-rule{height:3px;background:var(--yellow);}
 .mtd-badge{display:inline-block;background:rgba(255,203,0,.15);color:var(--yellow);font-size:10px;font-weight:500;padding:2px 8px;border-radius:3px;margin-left:8px;vertical-align:middle;letter-spacing:.5px;}
-
-/* KPI */
 .kpi-strip{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--border);}
 .kpi-card{padding:16px 20px 14px;border-right:1px solid var(--border);display:flex;flex-direction:column;}
 .kpi-card:last-child{border-right:none;}
@@ -45,8 +37,6 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f3f8;color:var(--
 .kpi-bar{height:4px;background:var(--border);border-radius:2px;margin-top:10px;}
 .kpi-bar-fill{height:4px;border-radius:2px;}
 .up{color:var(--green);}.down{color:var(--red);}.neutral{color:var(--muted);}
-
-/* DECISIONS */
 .decisions{background:var(--navy);padding:20px 28px 22px;}
 .decisions-label{font-size:10px;font-weight:500;color:var(--yellow);text-transform:uppercase;letter-spacing:1.2px;display:flex;align-items:center;gap:8px;margin-bottom:14px;}
 .decisions-label::before{content:'';display:block;width:3px;height:14px;background:var(--yellow);border-radius:2px;}
@@ -62,8 +52,6 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f3f8;color:var(--
 .dc-title{font-size:13px;font-weight:500;color:#fff;margin-bottom:5px;line-height:1.3;}
 .dc-body{font-size:11px;color:#adbbd4;line-height:1.5;}
 .dc-chip{display:inline-block;margin-top:8px;font-size:11px;font-weight:500;padding:2px 9px;border-radius:3px;background:rgba(255,203,0,.12);color:var(--yellow);}
-
-/* TABLES */
 .section{padding:16px 24px 18px;border-bottom:1px solid var(--border);}
 .panel-title{font-size:12px;font-weight:500;color:var(--navy);margin-bottom:12px;display:flex;align-items:center;gap:8px;}
 .panel-rule{width:3px;height:14px;background:var(--yellow);border-radius:2px;flex-shrink:0;}
@@ -81,11 +69,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f3f8;color:var(--
 .mom-pos{color:var(--green);font-weight:500;}.mom-neg{color:var(--red);font-weight:500;}
 .seg-pip{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:4px;vertical-align:middle;}
 .total-row td{font-weight:500;border-top:1.5px solid var(--navy);background:var(--ltbg);padding:5px 6px;}
-.col-base{color:var(--muted);}
-.col-mid{color:#374a62;font-weight:500;}
-.col-curr{color:var(--navy);font-weight:500;}
-
-/* PORTFOLIO SEGMENTS */
+.col-base{color:var(--muted);}.col-mid{color:#374a62;font-weight:500;}.col-curr{color:var(--navy);font-weight:500;}
 .two-col{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--border);}
 .port-panel{padding:18px 24px;border-right:1px solid var(--border);}
 .port-panel:last-child{border-right:none;}
@@ -112,8 +96,6 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f3f8;color:var(--
 .seg-total{margin-top:8px;padding-top:6px;border-top:1px solid rgba(0,0,0,.1);display:flex;justify-content:space-between;align-items:center;}
 .seg-total-label{font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.6px;}
 .seg-total-val{font-size:13px;font-weight:500;}
-
-/* DETAIL */
 .detail{display:grid;grid-template-columns:1fr 1fr;}
 .detail-panel{padding:14px 24px 18px;border-right:1px solid var(--border);}
 .detail-panel:last-child{border-right:none;}
@@ -129,13 +111,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f3f8;color:var(--
 .contrib-bar-fill{height:100%;border-radius:3px;display:flex;align-items:center;justify-content:flex-end;padding-right:6px;}
 .legend-row{display:flex;gap:14px;margin-bottom:8px;font-size:11px;color:#666;flex-wrap:wrap;}
 .legend-dot{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:3px;vertical-align:middle;}
-
-/* UNIQUE PAYERS */
 .up-body-row{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--border);}
 .up-body-panel{padding:18px 24px;border-right:1px solid var(--border);}
 .up-body-panel:last-child{border-right:none;}
-
-/* FOOTER */
 .rpt-footer{background:var(--navy);padding:10px 28px;display:flex;justify-content:space-between;align-items:center;}
 .rpt-footer span{font-size:11px;color:var(--muted);}
 .mtn-tag{color:var(--yellow);font-weight:500;}
@@ -143,11 +121,10 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f3f8;color:var(--
 </style>
 </head>
 <body>
-
 <nav class="nav">
   <div class="nav-brand">
     <div class="nav-brand-title">MoMo by MTN &middot; Performance Report</div>
-    <div class="nav-brand-sub">July 2026 &middot; 13 Operating Companies</div>
+    <div class="nav-brand-sub">July 2026 &middot; 13 Operating Companies &middot; Data as at 19 Jul</div>
   </div>
   <div class="nav-tabs">
     <button class="nav-tab active" onclick="showPage('p1',this)">MTD</button>
@@ -157,37 +134,31 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f3f8;color:var(--
   <div class="nav-meta">Confidential &middot; Board Report</div>
 </nav>
 
-<!-- ═══════════════════════════════════════════════════
-     TAB 1: MTD
-═══════════════════════════════════════════════════ -->
+<!-- TAB 1: MTD -->
 <div id="p1" class="page active"><div class="report">
   <div class="rpt-header">
     <div><h1>MAB Overview <span class="mtd-badge">MTD</span></h1><p>Monthly Active Base &middot; MoMo by MTN &middot; 13 Operating Companies</p></div>
-    <div class="rpt-header-right"><div class="period">Reporting period</div><div class="edition">MTD July 2026</div><div class="sub">vs End June 2026 &middot; Data as at 15 Jul</div></div>
+    <div class="rpt-header-right"><div class="period">Reporting period</div><div class="edition">MTD July 2026</div><div class="sub">vs End June 2026 &middot; Data as at 19 Jul</div></div>
   </div>
   <div class="yellow-rule"></div>
-
   <div class="kpi-strip">
-    <div class="kpi-card"><div class="kpi-label">Group MAB</div><div class="kpi-value">2.336M</div><div class="kpi-sub down">&#9660; &ndash;12.2K (&ndash;0.5%) vs June end</div><div class="kpi-bar"><div class="kpi-bar-fill" style="width:84%;background:var(--red);"></div></div></div>
-    <div class="kpi-card"><div class="kpi-label">Week on Week (10 Jul)</div><div class="kpi-value">&ndash;2.1K</div><div class="kpi-sub down">&ndash;0.1% vs 10 Jul snapshot</div><div class="kpi-bar"><div class="kpi-bar-fill" style="width:84%;background:var(--red);"></div></div></div>
-    <div class="kpi-card"><div class="kpi-label">Markets growing MTD</div><div class="kpi-value">6 / 13</div><div class="kpi-sub down">Zambia, Benin, Uganda biggest drags</div><div class="kpi-bar"><div class="kpi-bar-fill" style="width:46%;background:var(--red);"></div></div></div>
-    <div class="kpi-card"><div class="kpi-label">Markets above budget</div><div class="kpi-value">2 / 13</div><div class="kpi-sub up">Rwanda 106% &middot; Cameroon 102%</div><div class="kpi-bar"><div class="kpi-bar-fill" style="width:15%;background:var(--yellow);"></div></div></div>
+    <div class="kpi-card"><div class="kpi-label">Group MAB</div><div class="kpi-value">2.353M</div><div class="kpi-sub up">&#9650; +5.5K (+0.2%) vs June end</div><div class="kpi-bar"><div class="kpi-bar-fill" style="width:84%;background:var(--yellow);"></div></div></div>
+    <div class="kpi-card"><div class="kpi-label">Week on Week (10 Jul)</div><div class="kpi-value">+15.5K</div><div class="kpi-sub up">+0.7% vs 10 Jul snapshot</div><div class="kpi-bar"><div class="kpi-bar-fill" style="width:84%;background:var(--green);"></div></div></div>
+    <div class="kpi-card"><div class="kpi-label">Markets growing MTD</div><div class="kpi-value">6 / 13</div><div class="kpi-sub neutral">Congo B, Zambia biggest drags</div><div class="kpi-bar"><div class="kpi-bar-fill" style="width:46%;background:var(--amber);"></div></div></div>
+    <div class="kpi-card"><div class="kpi-label">Markets above budget</div><div class="kpi-value">2 / 13</div><div class="kpi-sub up">Rwanda 107% &middot; Cameroon 103%</div><div class="kpi-bar"><div class="kpi-bar-fill" style="width:15%;background:var(--yellow);"></div></div></div>
   </div>
-
   <div class="decisions">
     <div class="decisions-label">Decisions required &mdash; July 2026</div>
     <div class="decisions-grid">
-      <div class="dc urgent"><div class="dc-top"><span class="dc-badge badge-u">Critical</span><span class="dc-mkt">Zambia</span></div><div class="dc-title">Zambia down 18.4K MTD</div><div class="dc-body">From a June close of 314.9K, Zambia has shed 18.4K (&ndash;5.8%) MTD. Despite a marginal WoW recovery of +0.8%, it remains the single largest drag on the portfolio. Root cause and intervention plan needed urgently.</div><span class="dc-chip">&ndash;18.4K MTD &middot; 93% of budget</span></div>
-      <div class="dc urgent"><div class="dc-top"><span class="dc-badge badge-u">Critical</span><span class="dc-mkt">Benin</span></div><div class="dc-title">Benin crashed then recovered partially</div><div class="dc-body">Hit a low of 120.9K at 10 Jul before recovering to 131.6K MTD (+8.8% WoW). Still 11.2K below June end (&ndash;7.9% MTD). Recovery signal is encouraging but needs to be monitored daily through month end.</div><span class="dc-chip">&ndash;11.2K MTD &middot; WoW +8.8%</span></div>
-      <div class="dc urgent"><div class="dc-top"><span class="dc-badge badge-u">Urgent</span><span class="dc-mkt">Uganda</span></div><div class="dc-title">Uganda WoW reversal of 17.4K</div><div class="dc-body">Peaked at 213.9K on 10 Jul before falling back to 196.6K MTD (&ndash;8.1% WoW). Down 3.2K vs June end. The WoW swing is the largest in the portfolio this week and needs explanation before month close.</div><span class="dc-chip">&ndash;17.4K WoW &middot; 79% of budget</span></div>
-      <div class="dc watch"><div class="dc-top"><span class="dc-badge badge-w">Watch</span><span class="dc-mkt">Congo B &middot; S. Africa &middot; CDI</span></div><div class="dc-title">Three markets in continued decline</div><div class="dc-body">Congo B &ndash;4.6% MTD, S. Africa &ndash;4.1% MTD (now fourth consecutive month), CDI &ndash;1.0% MTD. All three have been declining for multiple months with no recovery signal visible in the data.</div><span class="dc-chip">Combined &ndash;5.0K MTD</span></div>
-      <div class="dc growth"><div class="dc-top"><span class="dc-badge badge-g">Milestone</span><span class="dc-mkt">Rwanda &middot; Cameroon</span></div><div class="dc-title">Two Scale markets above annual budget</div><div class="dc-body">Rwanda at 106% and Cameroon at 102% of annual budget. The first time two markets have simultaneously exceeded their annual targets. Protect both through H2 and ensure retention is planned for July close.</div><span class="dc-chip">Rwanda 106% &middot; Cameroon 102%</span></div>
-      <div class="dc growth"><div class="dc-top"><span class="dc-badge badge-g">Positive</span><span class="dc-mkt">Liberia &middot; Ghana</span></div><div class="dc-title">Consistent positive MTD movement</div><div class="dc-body">Liberia +6.5% MTD at 90% of budget, steady WoW. Ghana +0.8% MTD. Both Scale and Recovery contributors holding positive. Benin WoW recovery (+8.8%) also a signal worth watching.</div><span class="dc-chip">Liberia +1.9K &middot; Ghana +2.2K MTD</span></div>
+      <div class="dc urgent"><div class="dc-top"><span class="dc-badge badge-u">Critical</span><span class="dc-mkt">Congo B</span></div><div class="dc-title">Congo B deteriorating rapidly</div><div class="dc-body">Down 10.6% MTD vs June end and falling a further 6.2% WoW. Now at 65% of annual budget. This is the sharpest MTD decline in the portfolio and has not shown any recovery signal.</div><span class="dc-chip">&ndash;4.5K MTD &middot; 65% of budget</span></div>
+      <div class="dc urgent"><div class="dc-top"><span class="dc-badge badge-u">Urgent</span><span class="dc-mkt">Zambia</span></div><div class="dc-title">Zambia still well below June close</div><div class="dc-body">Despite a marginal WoW recovery of +0.9%, Zambia remains 17.9K (&ndash;5.7%) below its June end close of 314.9K. At 93% of budget, a sustained reversal from here would be material to portfolio total.</div><span class="dc-chip">&ndash;17.9K MTD &middot; 93% of budget</span></div>
+      <div class="dc watch"><div class="dc-top"><span class="dc-badge badge-w">Watch</span><span class="dc-mkt">CDI &middot; Benin</span></div><div class="dc-title">Build segment still negative MTD</div><div class="dc-body">CDI &ndash;2.3% MTD with a further &ndash;1.6% WoW decline. Benin is &ndash;2.7% MTD but showing a strong WoW recovery of +15.0% from its July low of 120.9K. Benin trend is encouraging; CDI is not.</div><span class="dc-chip">Benin +15% WoW &middot; CDI still falling</span></div>
+      <div class="dc watch"><div class="dc-top"><span class="dc-badge badge-w">Watch</span><span class="dc-mkt">Uganda</span></div><div class="dc-title">Uganda WoW reversal persists</div><div class="dc-body">Peaked at 213.9K on 10 Jul and has dropped 12.4K (&ndash;5.8% WoW) to 201.5K MTD. Just above June end (+0.9% MTD) but the downward WoW trajectory needs monitoring and explanation before month close.</div><span class="dc-chip">&ndash;12.4K WoW &middot; 81% of budget</span></div>
+      <div class="dc growth"><div class="dc-top"><span class="dc-badge badge-g">Milestone</span><span class="dc-mkt">Rwanda &middot; Cameroon</span></div><div class="dc-title">Two markets above annual budget</div><div class="dc-body">Rwanda at 107% and Cameroon at 103% of annual budget. First time two markets have simultaneously exceeded their annual targets. Protect heading into H2 and build retention plans for month close.</div><span class="dc-chip">Rwanda 107% &middot; Cameroon 103%</span></div>
+      <div class="dc growth"><div class="dc-top"><span class="dc-badge badge-g">Positive</span><span class="dc-mkt">Group &middot; Liberia</span></div><div class="dc-title">Portfolio stabilises above June end</div><div class="dc-body">Group flips +5.5K (+0.2%) above June end with strong WoW momentum of +15.5K. Liberia leads individual MTD growth at +10.1% (93% of budget). Ghana and Rwanda both contributing steady positive movement.</div><span class="dc-chip">Group +0.2% MTD &middot; Liberia +10.1%</span></div>
     </div>
   </div>
   <div class="yellow-rule"></div>
-
-  <!-- MTD MARKET TABLE -->
   <div class="section">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
       <div class="panel-title" style="margin-bottom:0;"><span class="panel-rule"></span>Market detail &mdash; June end / 10 Jul / MTD latest</div>
@@ -206,8 +177,6 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f3f8;color:var(--
       <tbody id="mtdTableBody"></tbody>
     </table>
   </div>
-
-  <!-- MTD IMPACT -->
   <div class="detail">
     <div class="detail-panel">
       <div class="panel-title"><span class="panel-rule"></span>MTD impact &mdash; vs June end</div>
@@ -220,44 +189,37 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f3f8;color:var(--
       <div class="sub-label">Losing this week</div><div id="wowNeg"></div>
     </div>
   </div>
-
   <div class="rpt-footer">
     <span>MAB Performance &middot; MTD July 2026 &middot; Confidential</span>
     <span><span class="mtn-tag">MoMo by MTN</span> &middot; Page 1 of 3</span>
   </div>
 </div></div>
 
-<!-- ═══════════════════════════════════════════════════
-     TAB 2: MONTH ON MONTH
-═══════════════════════════════════════════════════ -->
+<!-- TAB 2: MONTH ON MONTH -->
 <div id="p2" class="page"><div class="report">
   <div class="rpt-header">
     <div><h1>Month on Month</h1><p>Monthly Active Base &middot; MoMo by MTN &middot; 13 Operating Companies</p></div>
     <div class="rpt-header-right"><div class="period">Reporting period</div><div class="edition">May vs June 2026</div><div class="sub">End of month actuals</div></div>
   </div>
   <div class="yellow-rule"></div>
-
   <div class="kpi-strip">
     <div class="kpi-card"><div class="kpi-label">June Group MAB</div><div class="kpi-value">2.348M</div><div class="kpi-sub up">&#9650; +92.9K (+4.1%) vs May end</div><div class="kpi-bar"><div class="kpi-bar-fill" style="width:84%;background:var(--yellow);"></div></div></div>
     <div class="kpi-card"><div class="kpi-label">Budget achievement</div><div class="kpi-value">84%</div><div class="kpi-sub up">&#9650; Up from 81% in May</div><div class="kpi-bar"><div class="kpi-bar-fill" style="width:84%;background:var(--yellow);"></div></div></div>
     <div class="kpi-card"><div class="kpi-label">Markets growing MoM</div><div class="kpi-value">7 / 13</div><div class="kpi-sub neutral">Uganda, Zambia, Cameroon leading</div><div class="kpi-bar"><div class="kpi-bar-fill" style="width:54%;background:var(--yellow);"></div></div></div>
-    <div class="kpi-card"><div class="kpi-label">Markets above budget</div><div class="kpi-value">1 / 13</div><div class="kpi-sub up">Rwanda at 105% &middot; Cameroon at 99%</div><div class="kpi-bar"><div class="kpi-bar-fill" style="width:8%;background:var(--yellow);"></div></div></div>
+    <div class="kpi-card"><div class="kpi-label">Markets above budget</div><div class="kpi-value">1 / 13</div><div class="kpi-sub up">Rwanda 105% &middot; Cameroon at 99%</div><div class="kpi-bar"><div class="kpi-bar-fill" style="width:8%;background:var(--yellow);"></div></div></div>
   </div>
-
   <div class="decisions">
     <div class="decisions-label">Performance review &mdash; May to June 2026</div>
     <div class="decisions-grid">
       <div class="dc urgent"><div class="dc-top"><span class="dc-badge badge-u">Critical</span><span class="dc-mkt">Nigeria</span></div><div class="dc-title">Nigeria at 608 MAB, down 65.8%</div><div class="dc-body">From 1,776 in May to 608 in June, a 65.8% decline. The market is effectively inactive. A dedicated strategic session tied to A+ MVP 2.0 is the next step; monthly reporting is no longer an appropriate forum.</div><span class="dc-chip">0% of 127K budget</span></div>
-      <div class="dc urgent"><div class="dc-top"><span class="dc-badge badge-u">Urgent</span><span class="dc-mkt">Congo B &middot; S. Africa &middot; Eswatini</span></div><div class="dc-title">Multi-market structural decline</div><div class="dc-body">Congo B &ndash;9.3% MoM, S. Africa &ndash;11.4% MoM (second consecutive month), Eswatini &ndash;6.6% MoM. All three declining with no recovery signal. Formal root cause investigations required across all three.</div><span class="dc-chip">Combined &ndash;6.6K MoM</span></div>
-      <div class="dc watch"><div class="dc-top"><span class="dc-badge badge-w">Validate</span><span class="dc-mkt">Uganda</span></div><div class="dc-title">Uganda +35.9% MoM needs validation</div><div class="dc-body">Up 52.7K in one month to 199.7K. A full-month result makes this harder to dismiss, but the driver has not been confirmed. A root cause brief and retention plan for July are still required.</div><span class="dc-chip">+52.7K MoM &middot; 80% of budget</span></div>
+      <div class="dc urgent"><div class="dc-top"><span class="dc-badge badge-u">Urgent</span><span class="dc-mkt">Congo B &middot; S. Africa &middot; Eswatini</span></div><div class="dc-title">Multi-market structural decline</div><div class="dc-body">Congo B &ndash;9.3% MoM, S. Africa &ndash;11.4% MoM (second consecutive month), Eswatini &ndash;6.6% MoM. All three declining with no recovery signal. Formal root cause investigations required.</div><span class="dc-chip">Combined &ndash;6.6K MoM</span></div>
+      <div class="dc watch"><div class="dc-top"><span class="dc-badge badge-w">Validate</span><span class="dc-mkt">Uganda</span></div><div class="dc-title">Uganda +35.9% MoM needs validation</div><div class="dc-body">Up 52.7K in one month to 199.7K. A full-month result makes this harder to dismiss, but the driver has not been confirmed. Root cause brief and July retention plan still required.</div><span class="dc-chip">+52.7K MoM &middot; 80% of budget</span></div>
       <div class="dc watch"><div class="dc-top"><span class="dc-badge badge-w">Watch</span><span class="dc-mkt">Ghana &middot; CDI</span></div><div class="dc-title">Scale and Build markets declining</div><div class="dc-body">Ghana &ndash;1.8% MoM, second consecutive month of softening from a Scale market. CDI &ndash;2.1% MoM continuing a structural underperformance now tracking at 59% of budget for three months running.</div><span class="dc-chip">Ghana &ndash;5.2K &middot; CDI &ndash;3.8K MoM</span></div>
-      <div class="dc growth"><div class="dc-top"><span class="dc-badge badge-g">Sustain</span><span class="dc-mkt">Rwanda &middot; Zambia</span></div><div class="dc-title">Two markets showing strong growth</div><div class="dc-body">Rwanda at 105% of annual budget, the first market to exceed its target. Zambia delivered +9.3% MoM (+26.9K), tracking at 98% of budget. Both markets need retention focus heading into July.</div><span class="dc-chip">Rwanda 105% &middot; Zambia 98%</span></div>
-      <div class="dc growth"><div class="dc-top"><span class="dc-badge badge-g">Tracking</span><span class="dc-mkt">Cameroon &middot; Benin</span></div><div class="dc-title">Build momentum continuing</div><div class="dc-body">Cameroon at 99% of budget and +3.8% MoM, on course to cross target in July. Benin +3.1% MoM, first positive month in several months. Both building from a low base but heading in the right direction.</div><span class="dc-chip">CMR 99% &middot; Benin +3.1%</span></div>
+      <div class="dc growth"><div class="dc-top"><span class="dc-badge badge-g">Sustain</span><span class="dc-mkt">Rwanda &middot; Zambia</span></div><div class="dc-title">Strong June performers</div><div class="dc-body">Rwanda at 105% of annual budget, first market to exceed its target. Zambia delivered +9.3% MoM (+26.9K), tracking at 98% of budget. Both need retention focus heading into July close.</div><span class="dc-chip">Rwanda 105% &middot; Zambia 98%</span></div>
+      <div class="dc growth"><div class="dc-top"><span class="dc-badge badge-g">Tracking</span><span class="dc-mkt">Cameroon &middot; Benin</span></div><div class="dc-title">Build momentum continuing</div><div class="dc-body">Cameroon at 99% of budget, +3.8% MoM, on course to cross target in July. Benin +3.1% MoM, first positive month in several months. Both building from a low base but heading in the right direction.</div><span class="dc-chip">CMR 99% &middot; Benin +3.1%</span></div>
     </div>
   </div>
   <div class="yellow-rule"></div>
-
-  <!-- PORTFOLIO + CHART -->
   <div class="two-col">
     <div class="port-panel">
       <div class="panel-title"><span class="panel-rule"></span>Portfolio classification &mdash; End June 2026</div>
@@ -305,8 +267,6 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f3f8;color:var(--
       <div style="position:relative;width:100%;height:230px;"><canvas id="budgetChart"></canvas></div>
     </div>
   </div>
-
-  <!-- MOM TABLE -->
   <div class="section">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
       <div class="panel-title" style="margin-bottom:0;"><span class="panel-rule"></span>Market detail &mdash; May vs June 2026</div>
@@ -325,8 +285,6 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f3f8;color:var(--
       <tbody id="momTableBody"></tbody>
     </table>
   </div>
-
-  <!-- MOM DETAIL -->
   <div class="detail">
     <div class="detail-panel">
       <div class="panel-title"><span class="panel-rule"></span>MoM impact &mdash; May to June</div>
@@ -338,30 +296,27 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f3f8;color:var(--
       <div id="contribList"></div>
     </div>
   </div>
-
   <div class="rpt-footer">
     <span>MAB Performance &middot; Month on Month &middot; May vs June 2026 &middot; Confidential</span>
     <span><span class="mtn-tag">MoMo by MTN</span> &middot; Page 2 of 3</span>
   </div>
 </div></div>
 
-<!-- ═══════════════════════════════════════════════════
-     TAB 3: UNIQUE PAYERS
-═══════════════════════════════════════════════════ -->
+<!-- TAB 3: UNIQUE PAYERS -->
 <div id="p3" class="page"><div class="report">
   <div class="rpt-header">
     <div><h1>Monthly Active Users &mdash; Unique Payers</h1><p>Monthly Active Base &middot; MoMo by MTN &middot; 12 Operating Companies</p></div>
-    <div class="rpt-header-right"><div class="period">Reporting period</div><div class="edition">May 2026</div></div>
+    <div class="rpt-header-right"><div class="period">Reporting period</div><div class="edition">June 2026</div><div class="sub">vs May 2026</div></div>
   </div>
   <div class="yellow-rule"></div>
   <div class="kpi-strip">
-    <div class="kpi-card"><div class="kpi-label">Group unique payers</div><div class="kpi-value">14.56M</div><div class="kpi-sub up">&#9650; +287.8K vs Apr &rsquo;26 (+2.0%)</div><div class="kpi-bar"><div class="kpi-bar-fill" style="width:100%;background:var(--yellow);"></div></div></div>
-    <div class="kpi-card"><div class="kpi-label">YoY growth (May 25&ndash;26)</div><div class="kpi-value">+17.5%</div><div class="kpi-sub up">&#9650; +2.17M net adds vs May &rsquo;25</div><div class="kpi-bar"><div class="kpi-bar-fill" style="width:78%;background:var(--green);"></div></div></div>
-    <div class="kpi-card"><div class="kpi-label">2-year CAGR</div><div class="kpi-value">21.0%</div><div class="kpi-sub neutral">Dec &rsquo;24 &rarr; May &rsquo;26</div><div class="kpi-bar"><div class="kpi-bar-fill" style="width:75%;background:var(--yellow);"></div></div></div>
-    <div class="kpi-card"><div class="kpi-label">Markets growing MoM</div><div class="kpi-value">9 / 12</div><div class="kpi-sub down">CDI, Eswatini, Nigeria declining</div><div class="kpi-bar"><div class="kpi-bar-fill" style="width:75%;background:var(--yellow);"></div></div></div>
+    <div class="kpi-card"><div class="kpi-label">Group unique payers</div><div class="kpi-value">14.36M</div><div class="kpi-sub down">&#9660; &ndash;200.6K vs May &rsquo;26 (&ndash;1.4%)</div><div class="kpi-bar"><div class="kpi-bar-fill" style="width:82%;background:var(--red);"></div></div></div>
+    <div class="kpi-card"><div class="kpi-label">YoY growth (Jun 25&ndash;26)</div><div class="kpi-value">+18.9%</div><div class="kpi-sub up">&#9650; +2.28M net adds vs Jun &rsquo;25</div><div class="kpi-bar"><div class="kpi-bar-fill" style="width:80%;background:var(--green);"></div></div></div>
+    <div class="kpi-card"><div class="kpi-label">2-year CAGR</div><div class="kpi-value">18.9%</div><div class="kpi-sub neutral">Dec &rsquo;24 &rarr; Jun &rsquo;26</div><div class="kpi-bar"><div class="kpi-bar-fill" style="width:72%;background:var(--yellow);"></div></div></div>
+    <div class="kpi-card"><div class="kpi-label">Markets growing MoM</div><div class="kpi-value">4 / 12</div><div class="kpi-sub down">&#9660; Reversal from 9/12 in May</div><div class="kpi-bar"><div class="kpi-bar-fill" style="width:33%;background:var(--red);"></div></div></div>
   </div>
   <div class="section" style="border-bottom:1px solid var(--border);">
-    <div class="panel-title"><span class="panel-rule"></span>Group unique payers &mdash; monthly trend Jan 2024 to May 2026</div>
+    <div class="panel-title"><span class="panel-rule"></span>Group unique payers &mdash; monthly trend Jan 2024 to June 2026</div>
     <div class="legend-row">
       <span><span class="legend-dot" style="background:#0A1628;"></span>2024</span>
       <span><span class="legend-dot" style="background:var(--yellow);"></span>2025</span>
@@ -375,8 +330,8 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f3f8;color:var(--
       <table class="mkt-table" style="table-layout:fixed;">
         <thead><tr>
           <th style="text-align:left;width:90px;">Market</th>
-          <th style="width:72px;">May &rsquo;26</th>
-          <th style="width:62px;">MoM% Apr&ndash;May</th>
+          <th style="width:72px;">Jun &rsquo;26</th>
+          <th style="width:62px;">MoM% May&ndash;Jun</th>
           <th style="width:64px;">vs Dec &rsquo;25</th>
           <th style="width:50px;">CAGR%</th>
         </tr></thead>
@@ -384,31 +339,25 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#f0f3f8;color:var(--
       </table>
     </div>
     <div class="up-body-panel">
-      <div class="panel-title"><span class="panel-rule"></span>MoM growth % by market &mdash; Apr to May &rsquo;26</div>
+      <div class="panel-title"><span class="panel-rule"></span>MoM growth % by market &mdash; May to Jun &rsquo;26</div>
       <div class="legend-row">
         <span><span class="legend-dot" style="background:var(--green);"></span>Growth</span>
         <span><span class="legend-dot" style="background:var(--red);"></span>Decline</span>
       </div>
-      <div style="position:relative;width:100%;height:280px;"><canvas id="yoyChart"></canvas></div>
+      <div style="position:relative;width:100%;height:280px;"><canvas id="upChart"></canvas></div>
     </div>
   </div>
   <div class="rpt-footer">
-    <span>Monthly Active Users &middot; Unique Payers &middot; May 2026 &middot; Confidential</span>
+    <span>Monthly Active Users &middot; Unique Payers &middot; June 2026 &middot; Confidential</span>
     <span><span class="mtn-tag">MoMo by MTN</span> &middot; Page 3 of 3</span>
   </div>
 </div></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script>
-function showPage(id,btn){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  btn.classList.add('active');
-  window.scrollTo({top:0,behavior:'smooth'});
-}
+function showPage(id,btn){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));document.getElementById(id).classList.add('active');btn.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
 
-/* ── Shared data ─────────────────────────────── */
+/* ── Shared ── */
 const markets=['Rwanda','Cameroon','Ghana','Zambia','Uganda','CDI','Benin','Congo B','S.Africa','Liberia','Eswatini','S.Sudan','Nigeria'];
 const bud=[648065,417702,300000,320000,250000,305000,250020,59000,38973,34623,30959,12000,127000];
 const feb=[632875,379556,277681,295271,117243,192660,126111,44906,31902,29677,23609,4306,129329];
@@ -417,13 +366,13 @@ const apr=[656732,379556,284979,300522,155583,184265,135911,44549,22476,31589,23
 const may=[670010,398392,292931,288024,147000,184770,138413,46995,32886,28287,20862,4806,1776];
 const jun=[682177,413454,287767,314946,199749,180967,142773,42607,29143,29223,19482,5131,608];
 const wk1=[689924,424455,289966,294249,213931,179737,120884,40628,27474,31595,19545,4974,615];
-const mtd=[689924,427394,289954,296588,196568,179092,131553,40628,27954,31110,19494,4970,628];
-const lastUpdated=['10 Jul','14 Jul','13 Jul','15 Jul','15 Jul','14 Jul','15 Jul','10 Jul','14 Jul','15 Jul','15 Jul','15 Jul','15 Jul'];
+const mtd=[694573,430091,290565,297043,201488,176882,138984,38103,28565,32162,19499,4955,573];
+const lastUpdated=['19 Jul','19 Jul','19 Jul','19 Jul','19 Jul','19 Jul','19 Jul','19 Jul','19 Jul','19 Jul','19 Jul','19 Jul','19 Jul'];
 const segColor={'Rwanda':'#1a7a3c','Cameroon':'#1a7a3c','Ghana':'#1a7a3c','CDI':'#c69500','Benin':'#c69500','Nigeria':'#e53935','Zambia':'#e53935','Uganda':'#e53935','Liberia':'#e53935'};
 
-function fmt(n){return n.toLocaleString();}
-function pct(a,b){return((b-a)/a*100).toFixed(1);}
-function ach(v,b){return Math.round(v/b*100);}
+const fmt=n=>n.toLocaleString();
+const pct=(a,b)=>((b-a)/a*100).toFixed(1);
+const achF=(v,b)=>Math.round(v/b*100);
 
 function sparkline(data){
   const w=54,h=22,pad=3,mn=Math.min(...data),mx=Math.max(...data),range=mx-mn||1;
@@ -433,131 +382,107 @@ function sparkline(data){
   return`<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" style="overflow:visible"><polyline points="${pts.join(' ')}" fill="none" stroke="${c}" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/><circle cx="${lx}" cy="${ly}" r="2.5" fill="${c}"/></svg>`;
 }
 
-function impactRows(deltas,type){
-  return deltas.map(x=>`<div class="impact-row ${type}"><span>${type==='pos'?'&#8593;':'&#8595;'}</span><span class="impact-market">${x.m}</span><span class="impact-val ${type}">${x.d>=0?'+':''}${x.d.toLocaleString()}<span class="impact-pct">(${x.d>=0?'+':''}${x.p}%)</span></span></div>`).join('');
+function impactRows(arr,type){
+  return arr.map(x=>`<div class="impact-row ${type}"><span>${type==='pos'?'&#8593;':'&#8595;'}</span><span class="impact-market">${x.m}</span><span class="impact-val ${type}">${x.d>=0?'+':''}${fmt(x.d)}<span class="impact-pct">(${x.d>=0?'+':''}${x.p}%)</span></span></div>`).join('');
 }
 
-/* ── TAB 1: MTD ─────────────────────────────── */
-const MTD_TOTAL=2335857;
+/* ── TAB 1 ── */
 const rankedMtd=markets.map((m,i)=>({m,i})).sort((a,b)=>mtd[b.i]-mtd[a.i]);
-const tbody1=document.getElementById('mtdTableBody');
+const t1=document.getElementById('mtdTableBody');
 rankedMtd.forEach((row,ri)=>{
-  const i=row.i;
-  const a1=ach(mtd[i],bud[i]);
-  const wow=parseFloat(pct(wk1[i],mtd[i]));
-  const mtdPct=parseFloat(pct(jun[i],mtd[i]));
-  const above=a1>=100;
-  const rankEl=above?'<span class="rank-star">&#9733;</span>':`<span class="rank-badge">${ri+1}</span>`;
+  const i=row.i,a=achF(mtd[i],bud[i]),wow=parseFloat(pct(wk1[i],mtd[i])),mp=parseFloat(pct(jun[i],mtd[i]));
+  const above=a>=100;
+  const rk=above?'<span class="rank-star">&#9733;</span>':`<span class="rank-badge">${ri+1}</span>`;
   const pip=segColor[markets[i]]||'#b0b8c8';
-  const achClass=a1>=100?'budget-over':a1>=80?'budget-near':'budget-miss';
+  const ac=a>=100?'budget-over':a>=80?'budget-near':'budget-miss';
   const tr=document.createElement('tr');
-  tr.innerHTML=`
-    <td>${rankEl} <span class="seg-pip" style="background:${pip}"></span><span class="mkt-name">${markets[i]}</span><span class="mkt-date">${lastUpdated[i]}</span></td>
+  tr.innerHTML=`<td>${rk} <span class="seg-pip" style="background:${pip}"></span><span class="mkt-name">${markets[i]}</span><span class="mkt-date">${lastUpdated[i]}</span></td>
     <td class="col-base">${fmt(jun[i])}</td>
     <td class="col-mid ${wk1[i]>jun[i]?'mom-pos':wk1[i]<jun[i]?'mom-neg':''}">${fmt(wk1[i])}</td>
     <td class="col-curr ${mtd[i]>jun[i]?'mom-pos':mtd[i]<jun[i]?'mom-neg':''}">${fmt(mtd[i])}</td>
     <td class="${wow>=0?'mom-pos':'mom-neg'}">${wow>=0?'+':''}${wow}%</td>
-    <td class="${mtdPct>=0?'mom-pos':'mom-neg'}">${mtdPct>=0?'+':''}${mtdPct}%</td>
-    <td><span class="${achClass}">${a1}%</span></td>`;
-  tbody1.appendChild(tr);
+    <td class="${mp>=0?'mom-pos':'mom-neg'}">${mp>=0?'+':''}${mp}%</td>
+    <td><span class="${ac}">${a}%</span></td>`;
+  t1.appendChild(tr);
 });
 const tot1=document.createElement('tr');tot1.className='total-row';
-const grpWow=parseFloat(pct(2337977,2335857));
-const grpMtdPct=parseFloat(pct(2348027,2335857));
-tot1.innerHTML=`<td>Group total</td><td class="col-base">2,348,027</td><td class="col-mid">${fmt(2337977)}</td><td class="col-curr">${fmt(2335857)}</td><td class="${grpWow>=0?'mom-pos':'mom-neg'}">${grpWow>=0?'+':''}${grpWow}%</td><td class="${grpMtdPct>=0?'mom-pos':'mom-neg'}">${grpMtdPct>=0?'+':''}${grpMtdPct}%</td><td><span class="budget-near">84%</span></td>`;
-tbody1.appendChild(tot1);
+const gWow=parseFloat(pct(2337977,2353483)),gMtd=parseFloat(pct(2348027,2353483));
+tot1.innerHTML=`<td>Group total</td><td class="col-base">2,348,027</td><td class="col-mid mom-pos">${fmt(2337977)}</td><td class="col-curr mom-pos">${fmt(2353483)}</td><td class="mom-pos">+${gWow}%</td><td class="mom-pos">+${gMtd}%</td><td><span class="budget-near">84%</span></td>`;
+t1.appendChild(tot1);
 
-// MTD impact
-const mtdDeltas=markets.map((m,i)=>({m,d:mtd[i]-jun[i],p:parseFloat(pct(jun[i],mtd[i]))}));
-const mtdPos=mtdDeltas.filter(x=>x.d>0).sort((a,b)=>b.d-a.d).slice(0,5);
-const mtdNeg=mtdDeltas.filter(x=>x.d<0).sort((a,b)=>a.d-b.d).slice(0,5);
-document.getElementById('mtdPos').innerHTML=impactRows(mtdPos,'pos');
-document.getElementById('mtdNeg').innerHTML=impactRows(mtdNeg,'neg');
+const d1=markets.map((m,i)=>({m,d:mtd[i]-jun[i],p:parseFloat(pct(jun[i],mtd[i]))}));
+document.getElementById('mtdPos').innerHTML=impactRows(d1.filter(x=>x.d>0).sort((a,b)=>b.d-a.d).slice(0,5),'pos');
+document.getElementById('mtdNeg').innerHTML=impactRows(d1.filter(x=>x.d<0).sort((a,b)=>a.d-b.d).slice(0,5),'neg');
+const d2=markets.map((m,i)=>({m,d:mtd[i]-wk1[i],p:parseFloat(pct(wk1[i],mtd[i]))}));
+document.getElementById('wowPos').innerHTML=impactRows(d2.filter(x=>x.d>0).sort((a,b)=>b.d-a.d).slice(0,5),'pos');
+document.getElementById('wowNeg').innerHTML=impactRows(d2.filter(x=>x.d<0).sort((a,b)=>a.d-b.d).slice(0,5),'neg');
 
-// WoW impact
-const wowDeltas=markets.map((m,i)=>({m,d:mtd[i]-wk1[i],p:parseFloat(pct(wk1[i],mtd[i]))}));
-const wowPos=wowDeltas.filter(x=>x.d>0).sort((a,b)=>b.d-a.d).slice(0,5);
-const wowNeg=wowDeltas.filter(x=>x.d<0).sort((a,b)=>a.d-b.d).slice(0,5);
-document.getElementById('wowPos').innerHTML=impactRows(wowPos,'pos');
-document.getElementById('wowNeg').innerHTML=impactRows(wowNeg,'neg');
-
-/* ── TAB 2: MONTH ON MONTH ───────────────────── */
+/* ── TAB 2 ── */
 const JUN_TOTAL=2348027;
 const rankedJun=markets.map((m,i)=>({m,i})).sort((a,b)=>jun[b.i]-jun[a.i]);
-const tbody2=document.getElementById('momTableBody');
+const t2=document.getElementById('momTableBody');
 rankedJun.forEach((row,ri)=>{
-  const i=row.i;
-  const achJ=ach(jun[i],bud[i]);
-  const mom=parseFloat(pct(may[i],jun[i]));
-  const above=achJ>=100;
-  const rankEl=above?'<span class="rank-star">&#9733;</span>':`<span class="rank-badge">${ri+1}</span>`;
+  const i=row.i,aJ=achF(jun[i],bud[i]),mom=parseFloat(pct(may[i],jun[i]));
+  const above=aJ>=100;
+  const rk=above?'<span class="rank-star">&#9733;</span>':`<span class="rank-badge">${ri+1}</span>`;
   const pip=segColor[markets[i]]||'#b0b8c8';
-  const achClass=achJ>=100?'budget-over':achJ>=80?'budget-near':'budget-miss';
+  const ac=aJ>=100?'budget-over':aJ>=80?'budget-near':'budget-miss';
   const chg=jun[i]-may[i];
   const tr=document.createElement('tr');
-  tr.innerHTML=`
-    <td>${rankEl} <span class="seg-pip" style="background:${pip}"></span><span class="mkt-name">${markets[i]}</span></td>
+  tr.innerHTML=`<td>${rk} <span class="seg-pip" style="background:${pip}"></span><span class="mkt-name">${markets[i]}</span></td>
     <td style="text-align:center;">${sparkline([feb[i],mar[i],apr[i],may[i],jun[i]])}</td>
     <td class="col-base">${fmt(may[i])}</td>
     <td style="font-weight:500;color:var(--navy);">${fmt(jun[i])}</td>
     <td class="${mom>=0?'mom-pos':'mom-neg'}">${chg>=0?'+':''}${fmt(chg)}</td>
     <td class="${mom>=0?'mom-pos':'mom-neg'}">${mom>=0?'+':''}${mom}%</td>
-    <td><span class="${achClass}">${achJ}%</span></td>`;
-  tbody2.appendChild(tr);
+    <td><span class="${ac}">${aJ}%</span></td>`;
+  t2.appendChild(tr);
 });
 const tot2=document.createElement('tr');tot2.className='total-row';
-const grpMom=parseFloat(pct(2255152,2348027));
-tot2.innerHTML=`<td>Group total</td><td style="text-align:center;">${sparkline([2255935,2242732,2234911,2255152,2348027])}</td><td class="col-base">2,255,152</td><td style="font-weight:500;">2,348,027</td><td class="mom-pos">+92,875</td><td class="mom-pos">+${grpMom}%</td><td><span class="budget-near">84%</span></td>`;
-tbody2.appendChild(tot2);
+tot2.innerHTML=`<td>Group total</td><td style="text-align:center;">${sparkline([2255935,2242732,2234911,2255152,2348027])}</td><td class="col-base">2,255,152</td><td style="font-weight:500;">2,348,027</td><td class="mom-pos">+92,875</td><td class="mom-pos">+4.1%</td><td><span class="budget-near">84%</span></td>`;
+t2.appendChild(tot2);
 
-// MoM impact
-const momDeltas=markets.map((m,i)=>({m,d:jun[i]-may[i],p:parseFloat(pct(may[i],jun[i]))}));
-const momPos=momDeltas.filter(x=>x.d>0).sort((a,b)=>b.d-a.d).slice(0,5);
-const momNeg=momDeltas.filter(x=>x.d<0).sort((a,b)=>a.d-b.d).slice(0,5);
-document.getElementById('momPos').innerHTML=impactRows(momPos,'pos');
-document.getElementById('momNeg').innerHTML=impactRows(momNeg,'neg');
+const d3=markets.map((m,i)=>({m,d:jun[i]-may[i],p:parseFloat(pct(may[i],jun[i]))}));
+document.getElementById('momPos').innerHTML=impactRows(d3.filter(x=>x.d>0).sort((a,b)=>b.d-a.d).slice(0,5),'pos');
+document.getElementById('momNeg').innerHTML=impactRows(d3.filter(x=>x.d<0).sort((a,b)=>a.d-b.d).slice(0,5),'neg');
 
-// Top 5
 const top5=markets.map((m,i)=>({m,v:jun[i],p:(jun[i]/JUN_TOTAL*100).toFixed(1)})).sort((a,b)=>b.v-a.v).slice(0,5);
 const fills=['#0A1628','#FFCB00','#0A1628','#FFCB00','#0A1628'],texts=['#FFCB00','#0A1628','#FFCB00','#0A1628','#FFCB00'];
-document.getElementById('contribList').innerHTML=top5.map((d,i)=>{
-  const w=(parseFloat(d.p)/parseFloat(top5[0].p)*100).toFixed(0);
-  return`<div class="contrib-row"><div class="contrib-name">${i===0?'&#9733; '+d.m:d.m}</div><div class="contrib-bar-wrap"><div class="contrib-bar-fill" style="width:${w}%;background:${fills[i]};"><span style="font-size:11px;font-weight:500;color:${texts[i]};">${d.p}%</span></div></div></div>`;
-}).join('');
+document.getElementById('contribList').innerHTML=top5.map((d,i)=>{const w=(parseFloat(d.p)/parseFloat(top5[0].p)*100).toFixed(0);return`<div class="contrib-row"><div class="contrib-name">${i===0?'&#9733; '+d.m:d.m}</div><div class="contrib-bar-wrap"><div class="contrib-bar-fill" style="width:${w}%;background:${fills[i]};"><span style="font-size:11px;font-weight:500;color:${texts[i]};">${d.p}%</span></div></div></div>`;}).join('');
 
-// Budget chart (Tab 2)
-const mktsSorted=markets.map((m,i)=>({m,a:ach(jun[i],bud[i])})).sort((a,b)=>b.a-a.a);
-new Chart(document.getElementById('budgetChart'),{type:'bar',data:{labels:mktsSorted.map(x=>x.m),datasets:[{data:mktsSorted.map(x=>x.a),backgroundColor:mktsSorted.map(x=>x.a>=100?'#1a7a3c':x.a>=80?'#FFCB00':'#e53935'),borderRadius:2}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>ctx.raw+'%'}}},scales:{x:{grid:{color:'rgba(10,22,40,.05)'},ticks:{font:{size:10},color:'#8899bb',callback:v=>v+'%'},max:115},y:{grid:{display:false},ticks:{font:{size:10},color:'#243751'}}}}});
+const mS=markets.map((m,i)=>({m,a:achF(jun[i],bud[i])})).sort((a,b)=>b.a-a.a);
+new Chart(document.getElementById('budgetChart'),{type:'bar',data:{labels:mS.map(x=>x.m),datasets:[{data:mS.map(x=>x.a),backgroundColor:mS.map(x=>x.a>=100?'#1a7a3c':x.a>=80?'#FFCB00':'#e53935'),borderRadius:2}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>ctx.raw+'%'}}},scales:{x:{grid:{color:'rgba(10,22,40,.05)'},ticks:{font:{size:10},color:'#8899bb',callback:v=>v+'%'},max:115},y:{grid:{display:false},ticks:{font:{size:10},color:'#243751'}}}}});
 
-/* ── TAB 3: UNIQUE PAYERS ────────────────────── */
+/* ── TAB 3 ── */
 const upNames=['Benin','Congo B','CDI','Cameroon','Eswatini','Ghana','Liberia','Nigeria','S.Africa','Rwanda','Uganda','Zambia'];
 const upDec24=[1960830,129203,67300,1267123,149426,2332496,22194,8019,199613,3302163,1583053,53126];
 const upDec25=[1139543,469654,188568,2044990,171667,3147313,47432,4178,251300,3949438,2108748,69553];
-const upApr26=[1030381,476108,229900,2091143,166529,3318241,40105,467,242516,4073850,2524000,76083];
 const upMay26=[1076152,513538,201815,2122074,161498,3402441,50213,280,244467,4132153,2560939,91562];
-const upCagr=[-34.5,164.9,117.1,43.9,5.6,30.5,77.9,-90.6,15.4,17.1,40.4,46.9];
-function fmtUp(n){return n>=1e6?(n/1e6).toFixed(2)+'M':n>=1e3?(n/1e3).toFixed(1)+'K':n.toLocaleString();}
+const upJun26=[1098965,512757,186496,2013443,153777,3402213,40212,354,230887,4152114,2456548,108768];
 
-const upSorted=upNames.map((n,i)=>({n,i})).sort((a,b)=>upMay26[b.i]-upMay26[a.i]);
+const upCagr=[-32.0,150.7,97.3,36.2,1.9,28.6,48.6,-87.5,10.2,16.5,34.0,61.2];
+const fmtUp=n=>n>=1e6?(n/1e6).toFixed(2)+'M':n>=1e3?(n/1e3).toFixed(1)+'K':n.toLocaleString();
+
+const upSorted=upNames.map((n,i)=>({n,i})).sort((a,b)=>upJun26[b.i]-upJun26[a.i]);
 const upTbody=document.getElementById('upTableBody');
 upSorted.forEach(({n,i})=>{
-  const mom=parseFloat(pct(upApr26[i],upMay26[i]));
-  const vsd=parseFloat(pct(upDec25[i],upMay26[i]));
+  const mom=parseFloat(pct(upMay26[i],upJun26[i]));
+  const vsd=parseFloat(pct(upDec25[i],upJun26[i]));
   const cagr=upCagr[i];
   const tr=document.createElement('tr');
-  tr.innerHTML=`<td><span class="mkt-name">${n}</span></td><td style="font-weight:500;">${fmtUp(upMay26[i])}</td><td class="${mom>=0?'mom-pos':'mom-neg'}">${mom>=0?'+':''}${mom}%</td><td class="${vsd>=0?'mom-pos':'mom-neg'}">${vsd>=0?'+':''}${vsd}%</td><td class="${cagr>=0?'mom-pos':'mom-neg'}">${cagr>=0?'+':''}${cagr}%</td>`;
+  tr.innerHTML=`<td><span class="mkt-name">${n}</span></td><td style="font-weight:500;">${fmtUp(upJun26[i])}</td><td class="${mom>=0?'mom-pos':'mom-neg'}">${mom>=0?'+':''}${mom}%</td><td class="${vsd>=0?'mom-pos':'mom-neg'}">${vsd>=0?'+':''}${vsd}%</td><td class="${cagr>=0?'mom-pos':'mom-neg'}">${cagr>=0?'+':''}${cagr}%</td>`;
   upTbody.appendChild(tr);
 });
 const upTot=document.createElement('tr');upTot.className='total-row';
-upTot.innerHTML='<td>Total</td><td>14.56M</td><td class="mom-pos">+2.0%</td><td class="mom-pos">+7.1%</td><td class="mom-pos">+21.0%</td>';
+upTot.innerHTML='<td>Total</td><td>14.36M</td><td class="mom-neg">&ndash;1.4%</td><td class="mom-pos">+5.6%</td><td class="mom-pos">+18.9%</td>';
 upTbody.appendChild(upTot);
 
-const trendLabels=['Jan-24','Feb-24','Mar-24','Apr-24','May-24','Jun-24','Jul-24','Aug-24','Sep-24','Oct-24','Nov-24','Dec-24','Jan-25','Feb-25','Mar-25','Apr-25','May-25','Jun-25','Jul-25','Aug-25','Sep-25','Oct-25','Nov-25','Dec-25','Jan-26','Feb-26','Mar-26','Apr-26','May-26'];
-const trendData=[9260133,9221467,9742789,9717012,9911599,9503183,9722792,10047239,10563605,10837914,10665891,11074546,11539540,11456318,11961145,12241278,12391735,12075941,11827921,12274308,12647183,13045892,13111490,13592384,13091171,13349927,14232356,14269323,14557132];
-new Chart(document.getElementById('trendChart'),{type:'line',data:{labels:trendLabels,datasets:[{data:trendData,borderWidth:2,pointRadius:trendLabels.map((l,i)=>[0,11,12,23,28].includes(i)?4:1.5),pointBackgroundColor:trendLabels.map(l=>l.includes('-26')?'#1a7a3c':l.includes('-25')?'#FFCB00':'#0A1628'),pointBorderColor:trendLabels.map(l=>l.includes('-26')?'#1a7a3c':l.includes('-25')?'#FFCB00':'#0A1628'),fill:false,tension:0.35,segment:{borderColor:ctx=>{const l=trendLabels[ctx.p1DataIndex];return l.includes('-26')?'#1a7a3c':l.includes('-25')?'#FFCB00':'#0A1628';}}}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>(ctx.raw/1e6).toFixed(2)+'M'}}},scales:{x:{grid:{display:false},ticks:{font:{size:9},color:'#8899bb',maxTicksLimit:14,maxRotation:45}},y:{grid:{color:'rgba(10,22,40,.05)'},ticks:{font:{size:10},color:'#8899bb',callback:v=>(v/1e6).toFixed(1)+'M'},min:8500000,max:15000000}}}});
+const trendLabels=['Jan-24','Feb-24','Mar-24','Apr-24','May-24','Jun-24','Jul-24','Aug-24','Sep-24','Oct-24','Nov-24','Dec-24','Jan-25','Feb-25','Mar-25','Apr-25','May-25','Jun-25','Jul-25','Aug-25','Sep-25','Oct-25','Nov-25','Dec-25','Jan-26','Feb-26','Mar-26','Apr-26','May-26','Jun-26'];
+const trendData=[9260133,9221467,9742789,9717012,9911599,9503183,9722792,10047239,10563605,10837914,10665891,11074546,11539540,11456318,11961145,12241278,12391735,12075941,11827921,12274308,12647183,13045892,13111490,13592384,13091171,13349927,14232356,14269323,14557132,14356534];
+new Chart(document.getElementById('trendChart'),{type:'line',data:{labels:trendLabels,datasets:[{data:trendData,borderWidth:2,pointRadius:trendLabels.map((l,i)=>[0,11,12,23,29].includes(i)?4:1.5),pointBackgroundColor:trendLabels.map(l=>l.includes('-26')?'#1a7a3c':l.includes('-25')?'#FFCB00':'#0A1628'),pointBorderColor:trendLabels.map(l=>l.includes('-26')?'#1a7a3c':l.includes('-25')?'#FFCB00':'#0A1628'),fill:false,tension:0.35,segment:{borderColor:ctx=>{const l=trendLabels[ctx.p1DataIndex];return l.includes('-26')?'#1a7a3c':l.includes('-25')?'#FFCB00':'#0A1628';}}}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>(ctx.raw/1e6).toFixed(2)+'M'}}},scales:{x:{grid:{display:false},ticks:{font:{size:9},color:'#8899bb',maxTicksLimit:14,maxRotation:45}},y:{grid:{color:'rgba(10,22,40,.05)'},ticks:{font:{size:10},color:'#8899bb',callback:v=>(v/1e6).toFixed(1)+'M'},min:8500000,max:15500000}}}});
 
-const yoyData=upNames.map((n,i)=>({n,v:parseFloat(pct(upApr26[i],upMay26[i]))})).sort((a,b)=>b.v-a.v);
-new Chart(document.getElementById('yoyChart'),{type:'bar',data:{labels:yoyData.map(x=>x.n),datasets:[{data:yoyData.map(x=>x.v),backgroundColor:yoyData.map(x=>x.v>=0?'#1a7a3c':'#e53935'),borderRadius:2}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>(ctx.raw>=0?'+':'')+ctx.raw+'%'}}},scales:{x:{grid:{color:'rgba(10,22,40,.05)'},ticks:{font:{size:10},color:'#8899bb',callback:v=>v+'%'}},y:{grid:{display:false},ticks:{font:{size:10},color:'#243751'}}}}});
+const upChartData=upNames.map((n,i)=>({n,v:parseFloat(pct(upMay26[i],upJun26[i]))})).sort((a,b)=>b.v-a.v);
+new Chart(document.getElementById('upChart'),{type:'bar',data:{labels:upChartData.map(x=>x.n),datasets:[{data:upChartData.map(x=>x.v),backgroundColor:upChartData.map(x=>x.v>=0?'#1a7a3c':'#e53935'),borderRadius:2}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>(ctx.raw>=0?'+':'')+ctx.raw+'%'}}},scales:{x:{grid:{color:'rgba(10,22,40,.05)'},ticks:{font:{size:10},color:'#8899bb',callback:v=>v+'%'}},y:{grid:{display:false},ticks:{font:{size:10},color:'#243751'}}}}});
 </script>
 </body>
 </html>
