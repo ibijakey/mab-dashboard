@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>MoMo MAB Performance Report — September 2026</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--navy:#0A1628;--yellow:#FFCB00;--border:#e4e9f2;--muted:#8899bb;--green:#1a7a3c;--red:#e53935;--amber:#b87d00;--ltbg:#f5f7fb;}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#eef1f7;color:var(--navy);}
+/* NAV */
+.nav{background:var(--navy);position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 28px;border-bottom:3px solid var(--yellow);}
+.nav-brand-title{font-size:13px;font-weight:600;color:#fff;padding:12px 0 2px;}
+.nav-brand-sub{font-size:10px;color:var(--muted);padding-bottom:12px;}
+.nav-tabs{display:flex;}
+.nav-tab{padding:14px 22px;font-size:12px;font-weight:500;color:var(--muted);cursor:pointer;border:none;background:none;letter-spacing:.3px;position:relative;transition:color .15s;}
+.nav-tab:hover{color:#fff;}
+.nav-tab.active{color:var(--yellow);}
+.nav-tab.active::after{content:'';position:absolute;bottom:-3px;left:0;right:0;height:3px;background:var(--yellow);}
+.nav-meta{font-size:10px;color:var(--muted);}
+/* PAGE */
+.page{display:none;max-width:1120px;margin:24px auto;padding:0 16px 48px;}
+.page.active{display:block;}
+.report{background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 12px rgba(10,22,40,.1);}
+/* REPORT HEADER */
+.rpt-header{background:var(--navy);padding:18px 28px 14px;display:flex;justify-content:space-between;align-items:center;}
+.rpt-header h1{font-size:19px;font-weight:500;color:#fff;letter-spacing:-.2px;}
+.rpt-header-sub{font-size:11px;color:var(--muted);margin-top:3px;}
+.rpt-header-right{text-align:right;}
+.rpt-period{font-size:10px;color:var(--muted);}
+.rpt-edition{font-size:14px;color:var(--yellow);font-weight:600;margin-top:2px;}
+.rpt-edition-sub{font-size:10px;color:var(--muted);margin-top:1px;}
+.mtd-pill{display:inline-block;background:rgba(255,203,0,.18);color:var(--yellow);font-size:10px;font-weight:600;padding:1px 8px;border-radius:3px;margin-left:8px;vertical-align:middle;letter-spacing:.6px;}
+.yellow-rule{height:3px;background:var(--yellow);}
+/* KPI STRIP */
+.kpi-strip{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--border);}
+.kpi{padding:16px 20px 14px;border-right:1px solid var(--border);}
+.kpi:last-child{border-right:none;}
+.kpi-lbl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.9px;line-height:1.4;height:30px;display:flex;align-items:flex-start;}
+.kpi-val{font-size:32px;font-weight:500;color:var(--navy);line-height:1;margin:4px 0;}
+.kpi-sub{font-size:12px;line-height:1.4;}
+.kpi-bar{height:4px;background:var(--border);border-radius:2px;margin-top:10px;}
+.kpi-fill{height:4px;border-radius:2px;}
+.up{color:var(--green);} .dn{color:var(--red);} .mu{color:var(--muted);}
+/* CALLOUT BAND */
+.callout-band{background:var(--navy);padding:20px 28px 22px;}
+.cb-label{font-size:10px;font-weight:600;color:var(--yellow);text-transform:uppercase;letter-spacing:1.2px;display:flex;align-items:center;gap:8px;margin-bottom:14px;}
+.cb-label::before{content:'';display:block;width:3px;height:13px;background:var(--yellow);border-radius:2px;}
+.cb-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.cb-card{border-left:3px solid transparent;border-radius:0 6px 6px 0;padding:13px 15px;}
+.cb-card.g{background:#0d1f12;border-color:#2e9e50;}
+.cb-card.w{background:#1e1a08;border-color:var(--yellow);}
+.cb-card.r{background:#1e0c0c;border-color:var(--red);}
+.cb-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;}
+.cb-badge{font-size:10px;font-weight:600;padding:2px 8px;border-radius:3px;text-transform:uppercase;letter-spacing:.4px;}
+.bg{background:#2e9e50;color:#fff;} .bw{background:var(--yellow);color:var(--navy);} .br{background:var(--red);color:#fff;}
+.cb-mkt{font-size:10px;color:var(--muted);font-weight:500;}
+.cb-title{font-size:13px;font-weight:600;color:#fff;margin-bottom:5px;line-height:1.35;}
+.cb-body{font-size:11px;color:#adbbd4;line-height:1.55;}
+.cb-chip{display:inline-block;margin-top:8px;font-size:11px;font-weight:500;padding:2px 9px;border-radius:3px;background:rgba(255,203,0,.12);color:var(--yellow);}
+/* MARKET TABLE SECTION */
+.section{padding:16px 24px 18px;border-bottom:1px solid var(--border);}
+.panel-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
+.panel-title{font-size:12px;font-weight:600;color:var(--navy);display:flex;align-items:center;gap:7px;}
+.panel-rule{width:3px;height:13px;background:var(--yellow);border-radius:2px;flex-shrink:0;}
+.tbl{width:100%;border-collapse:collapse;font-size:12px;}
+.tbl th{font-size:10px;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);font-weight:500;padding:4px 6px;border-bottom:1px solid var(--border);text-align:right;white-space:nowrap;}
+.tbl th:first-child{text-align:left;}
+.tbl td{padding:5px 6px;border-bottom:.5px solid #f1f4f9;vertical-align:middle;font-variant-numeric:tabular-nums;}
+.tbl td:not(:first-child){text-align:right;}
+.tbl tr:hover td{background:#fffdf0;}
+.rank-n{display:inline-flex;align-items:center;justify-content:center;width:17px;height:17px;background:var(--navy);color:var(--yellow);border-radius:3px;font-size:9px;font-weight:600;}
+.rank-s{display:inline-flex;align-items:center;justify-content:center;width:17px;height:17px;background:var(--yellow);color:var(--navy);border-radius:3px;font-size:11px;}
+.mkt-name{font-weight:500;}
+.mkt-date{display:block;font-size:9px;color:var(--muted);padding-left:22px;margin-top:1px;}
+.seg-pip{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:4px;vertical-align:middle;}
+.col-base{color:#7a8aaa;}
+.ach-ok{color:var(--green);font-weight:600;}.ach-md{color:var(--amber);font-weight:600;}.ach-lo{color:var(--red);font-weight:600;}
+.tot-row td{font-weight:600;border-top:1.5px solid var(--navy);background:var(--ltbg);padding:6px 6px;}
+.val-badge{display:inline-block;background:rgba(184,125,0,.15);color:var(--amber);font-size:9px;font-weight:600;padding:1px 6px;border-radius:3px;margin-left:4px;letter-spacing:.3px;}
+.pend-badge{display:inline-block;background:#f0f3f8;color:var(--muted);font-size:9px;font-weight:600;padding:1px 6px;border-radius:3px;margin-left:4px;}
+/* DETAIL ROW */
+.detail-row{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--border);}
+.detail-panel{padding:14px 24px 18px;}
+.detail-panel:first-child{border-right:1px solid var(--border);}
+.sub-lbl{font-size:10px;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);font-weight:500;margin:6px 0 4px;}
+.impact-row{display:flex;align-items:center;gap:6px;padding:4px 7px;border-radius:4px;margin-bottom:3px;font-size:11.5px;}
+.impact-row.pos{background:#f0f9f3;} .impact-row.neg{background:#fef2f2;}
+.impact-mkt{flex:1;font-weight:500;}
+.impact-val.pos{color:var(--green);font-weight:600;} .impact-val.neg{color:var(--red);font-weight:600;}
+.impact-pct{font-size:10px;color:#999;margin-left:2px;}
+.contrib-row{display:flex;align-items:center;gap:8px;margin-bottom:7px;}
+.contrib-name{font-size:11.5px;font-weight:500;width:88px;flex-shrink:0;}
+.contrib-wrap{flex:1;height:18px;background:var(--border);border-radius:3px;overflow:hidden;}
+.contrib-fill{height:100%;border-radius:3px;display:flex;align-items:center;justify-content:flex-end;padding-right:6px;}
+/* FOOTER */
+.rpt-footer{background:var(--navy);padding:10px 28px;display:flex;justify-content:space-between;align-items:center;}
+.rpt-footer span{font-size:11px;color:var(--muted);}
+.mtn-tag{color:var(--yellow);font-weight:600;}
+/* PENDING TAB */
+.pending-wrap{padding:64px 28px;display:flex;flex-direction:column;align-items:center;min-height:360px;text-align:center;}
+.pending-pill{display:inline-block;background:rgba(255,203,0,.12);border:1px solid rgba(255,203,0,.28);color:var(--yellow);font-size:11px;font-weight:600;padding:5px 14px;border-radius:4px;letter-spacing:.8px;text-transform:uppercase;margin-bottom:18px;}
+.pending-title{font-size:22px;font-weight:500;color:#fff;margin-bottom:10px;}
+.pending-body{font-size:13px;color:var(--muted);line-height:1.75;max-width:460px;}
+/* UP TAB */
+.up-body{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--border);}
+.up-panel{padding:18px 24px;}
+.up-panel:first-child{border-right:1px solid var(--border);}
+.legend-row{display:flex;gap:14px;margin-bottom:10px;font-size:11px;color:#666;}
+.ldot{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:3px;vertical-align:middle;}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div>
+    <div class="nav-brand-title">MoMo by MTN &middot; Performance Report</div>
+    <div class="nav-brand-sub">September 2026 &middot; 13 Operating Companies &middot; Data as at 30 Sep</div>
+  </div>
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="show('p1',this)">MTD</button>
+    <button class="nav-tab" onclick="show('p2',this)">Month on Month</button>
+    <button class="nav-tab" onclick="show('p3',this)">Unique Payers</button>
+  </div>
+  <div class="nav-meta">Confidential &middot; Board Report</div>
+</nav>
+
+<!-- TAB 1 MTD -->
+<div id="p1" class="page active">
+<div class="report">
+  <div class="rpt-header">
+    <div>
+      <h1>MAB Overview <span class="mtd-pill">MTD</span></h1>
+      <div class="rpt-header-sub">Monthly Active Base &middot; MoMo by MTN &middot; 13 Operating Companies</div>
+    </div>
+    <div class="rpt-header-right">
+      <div class="rpt-period">Reporting period</div>
+      <div class="rpt-edition">MTD September 2026</div>
+      <div class="rpt-edition-sub">vs End August 2026 &middot; Data as at 30 Sep</div>
+    </div>
+  </div>
+  <div class="yellow-rule"></div>
+
+  <div class="kpi-strip">
+    <div class="kpi">
+      <div class="kpi-lbl">Group MAB</div>
+      <div class="kpi-val">2.482M</div>
+      <div class="kpi-sub up">&#9650; +57.8K (+2.4%) vs August end</div>
+      <div class="kpi-bar"><div class="kpi-fill" style="width:89%;background:var(--green);"></div></div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-lbl">Budget achievement</div>
+      <div class="kpi-val">89%</div>
+      <div class="kpi-sub up">&#9650; Highest rate of the year</div>
+      <div class="kpi-bar"><div class="kpi-fill" style="width:89%;background:var(--green);"></div></div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-lbl">Markets growing MTD</div>
+      <div class="kpi-val">11 / 13</div>
+      <div class="kpi-sub up">Best portfolio breadth of 2026</div>
+      <div class="kpi-bar"><div class="kpi-fill" style="width:85%;background:var(--yellow);"></div></div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-lbl">Markets above budget</div>
+      <div class="kpi-val">4 / 13</div>
+      <div class="kpi-sub up">RW 110% &middot; GH 107% &middot; CMR 106% &middot; ZA 100%</div>
+      <div class="kpi-bar"><div class="kpi-fill" style="width:31%;background:var(--yellow);"></div></div>
+    </div>
+  </div>
+
+  <div class="callout-band">
+    <div class="cb-label">September 2026 &mdash; opening position</div>
+    <div class="cb-grid">
+      <div class="cb-card g">
+        <div class="cb-top"><span class="cb-badge bg">Milestone</span><span class="cb-mkt">Portfolio</span></div>
+        <div class="cb-title">Strongest September opening on record</div>
+        <div class="cb-body">Group opens September +57.8K (+2.4%) vs August end, with 11 of 13 markets growing. This is the highest portfolio breadth reading of the year and the strongest month-opening absolute gain. Budget achievement reaches 89%, also a 2026 high.</div>
+        <span class="cb-chip">11/13 growing &middot; 89% of budget</span>
+      </div>
+      <div class="cb-card g">
+        <div class="cb-top"><span class="cb-badge bg">Milestone</span><span class="cb-mkt">Rwanda &middot; Ghana &middot; Cameroon &middot; Zambia</span></div>
+        <div class="cb-title">Four markets above annual budget simultaneously</div>
+        <div class="cb-body">Rwanda 110%, Ghana 107%, Cameroon 106%, Zambia 100% of annual budget. The first time four markets have simultaneously exceeded their annual targets. All four must be protected and sustained into Q4 with active retention plans.</div>
+        <span class="cb-chip">RW 110% &middot; GH 107% &middot; CMR 106% &middot; ZA 100%</span>
+      </div>
+      <div class="cb-card w">
+        <div class="cb-top"><span class="cb-badge bw">Validate</span><span class="cb-mkt">South Sudan</span></div>
+        <div class="cb-title">South Sudan +57.4% MTD</div>
+        <div class="cb-body">From 6,463 at August end to 10,171 MTD, a gain of 3,708. August also showed a large move (+35.2% MoM). Two consecutive large-percentage movements on a small base require data confirmation from OpCo before inclusion in forward projections.</div>
+        <span class="cb-chip">+3.7K MTD &middot; 85% of budget</span>
+      </div>
+      <div class="cb-card w">
+        <div class="cb-top"><span class="cb-badge bw">Watch</span><span class="cb-mkt">Uganda &middot; Liberia</span></div>
+        <div class="cb-title">Two markets declining MTD</div>
+        <div class="cb-body">Uganda down 7,852 (&minus;3.5% MTD) from August's strong close of 221,255. Liberia down 491 (&minus;1.5% MTD). Uganda's reversal is the more material of the two given its size. Both need monitoring through month end.</div>
+        <span class="cb-chip">Uganda &minus;3.5% &middot; Liberia &minus;1.5% MTD</span>
+      </div>
+      <div class="cb-card g">
+        <div class="cb-top"><span class="cb-badge bg">Positive</span><span class="cb-mkt">Congo-Brazzaville &middot; South Africa</span></div>
+        <div class="cb-title">Recovery markets sustaining momentum</div>
+        <div class="cb-body">Congo-Brazzaville +15.5% MTD confirms a third consecutive month of recovery. South Africa +11.4% MTD, a second consecutive positive signal. Both need root cause confirmed before being called structural recoveries.</div>
+        <span class="cb-chip">Congo B +6.8K &middot; S. Africa +3.4K MTD</span>
+      </div>
+      <div class="cb-card w">
+        <div class="cb-top"><span class="cb-badge bw">Watch</span><span class="cb-mkt">Cote d'Ivoire</span></div>
+        <div class="cb-title">CDI marginally positive, structurally weak</div>
+        <div class="cb-body">Up just 1,064 (+0.6% MTD). CDI remains at 55% of budget after eight consecutive months of decline. A single small positive is not recovery. Activation plan and task force findings remain outstanding.</div>
+        <span class="cb-chip">CDI +0.6% MTD &middot; 55% of budget</span>
+      </div>
+    </div>
+  </div>
+  <div class="yellow-rule"></div>
+
+  <div class="section">
+    <div class="panel-hd">
+      <div class="panel-title"><span class="panel-rule"></span>Market detail &mdash; August end vs September MTD</div>
+      <span style="font-size:10px;color:var(--muted);"><span style="display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;background:var(--yellow);color:var(--navy);border-radius:3px;font-size:11px;margin-right:4px;">&#9733;</span>Above annual budget</span>
+    </div>
+    <table class="tbl" style="table-layout:fixed;">
+      <thead><tr>
+        <th style="text-align:left;width:170px;">Market</th>
+        <th style="width:58px;text-align:center;">Trend</th>
+        <th style="width:86px;">Aug '26</th>
+        <th style="width:86px;">Sep MTD</th>
+        <th style="width:56px;">MTD%</th>
+        <th style="width:50px;">Ach%</th>
+      </tr></thead>
+      <tbody id="t1body"></tbody>
+    </table>
+  </div>
+
+  <div class="detail-row">
+    <div class="detail-panel">
+      <div class="panel-title"><span class="panel-rule"></span>MTD impact vs August end</div>
+      <div class="sub-lbl">Growth drivers</div><div id="posImpact"></div>
+      <div class="sub-lbl">Drag on portfolio</div><div id="negImpact"></div>
+    </div>
+    <div class="detail-panel">
+      <div class="panel-title"><span class="panel-rule"></span>Top 5 by portfolio share &mdash; September MTD</div>
+      <div id="contrib"></div>
+    </div>
+  </div>
+
+  <div class="rpt-footer">
+    <span>MAB Performance &middot; MTD September 2026 &middot; Confidential</span>
+    <span><span class="mtn-tag">MoMo by MTN</span> &middot; Page 1 of 3</span>
+  </div>
+</div>
+</div>
+
+<!-- TAB 2 MOM -->
+<div id="p2" class="page">
+<div class="report">
+  <div class="rpt-header">
+    <div>
+      <h1>Month on Month</h1>
+      <div class="rpt-header-sub">Monthly Active Base &middot; MoMo by MTN &middot; 13 Operating Companies</div>
+    </div>
+    <div class="rpt-header-right">
+      <div class="rpt-period">Reporting period</div>
+      <div class="rpt-edition">August vs September 2026</div>
+      <div class="rpt-edition-sub">End of month actuals</div>
+    </div>
+  </div>
+  <div class="yellow-rule"></div>
+  <div class="callout-band" style="min-height:360px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;">
+    <div class="pending-pill">Pending</div>
+    <div class="pending-title" style="color:#fff;">Final September numbers not yet confirmed</div>
+    <div class="pending-body">Month on Month analysis will be published once all 13 OpCo figures are confirmed at month end. The MTD tab reflects the latest available position as at 30 September.</div>
+  </div>
+  <div class="yellow-rule"></div>
+  <div class="rpt-footer">
+    <span>MAB Performance &middot; Month on Month &middot; September 2026 &middot; Confidential</span>
+    <span><span class="mtn-tag">MoMo by MTN</span> &middot; Page 2 of 3</span>
+  </div>
+</div>
+</div>
+
+<!-- TAB 3 UNIQUE PAYERS -->
+<div id="p3" class="page">
+<div class="report">
+  <div class="rpt-header">
+    <div>
+      <h1>Monthly Active Users &mdash; Unique Payers (C2B)</h1>
+      <div class="rpt-header-sub">MoMo by MTN &middot; 12 Operating Companies &middot; August 2026 (partial)</div>
+    </div>
+    <div class="rpt-header-right">
+      <div class="rpt-period">Reporting period</div>
+      <div class="rpt-edition">August 2026</div>
+      <div class="rpt-edition-sub">Ghana, RSA, Rwanda data pending</div>
+    </div>
+  </div>
+  <div class="yellow-rule"></div>
+
+  <div class="kpi-strip">
+    <div class="kpi">
+      <div class="kpi-lbl">Group UP &mdash; Jul '26 (complete)</div>
+      <div class="kpi-val">14.56M</div>
+      <div class="kpi-sub mu">Latest month with full 12-market data</div>
+      <div class="kpi-bar"><div class="kpi-fill" style="width:100%;background:var(--yellow);"></div></div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-lbl">MoM Jul to Aug (9 markets)</div>
+      <div class="kpi-val">+4.7%</div>
+      <div class="kpi-sub mu">Ghana, RSA, Rwanda pending</div>
+      <div class="kpi-bar"><div class="kpi-fill" style="width:70%;background:var(--green);"></div></div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-lbl">Growing Aug (available)</div>
+      <div class="kpi-val">7 / 9</div>
+      <div class="kpi-sub up">Uganda +8.6%, CDI +5.0% lead</div>
+      <div class="kpi-bar"><div class="kpi-fill" style="width:78%;background:var(--yellow);"></div></div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-lbl">Data pending</div>
+      <div class="kpi-val">3 mkts</div>
+      <div class="kpi-sub dn">Ghana (under review) &middot; RSA &middot; Rwanda</div>
+      <div class="kpi-bar"><div class="kpi-fill" style="width:25%;background:var(--red);"></div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="panel-title" style="margin-bottom:10px;"><span class="panel-rule"></span>Group unique payers &mdash; monthly trend Jan to Jul 2026 (12 markets, complete)</div>
+    <div style="font-size:10px;color:var(--muted);margin-bottom:8px;">August 2026 group total excluded pending Ghana, RSA and Rwanda confirmation</div>
+    <div style="position:relative;height:170px;"><canvas id="trendChart"></canvas></div>
+  </div>
+
+  <div class="up-body">
+    <div class="up-panel">
+      <div class="panel-title" style="margin-bottom:12px;"><span class="panel-rule"></span>Market performance &mdash; unique payers</div>
+      <table class="tbl" style="table-layout:fixed;">
+        <thead><tr>
+          <th style="text-align:left;width:120px;">Market</th>
+          <th style="width:84px;">Jul '26</th>
+          <th style="width:84px;">Aug '26</th>
+          <th style="width:64px;">MoM%</th>
+        </tr></thead>
+        <tbody id="upBody"></tbody>
+      </table>
+    </div>
+    <div class="up-panel">
+      <div class="panel-title" style="margin-bottom:8px;"><span class="panel-rule"></span>MoM % Jul to Aug &mdash; 9 available markets</div>
+      <div class="legend-row">
+        <span><span class="ldot" style="background:var(--green);"></span>Growth</span>
+        <span><span class="ldot" style="background:var(--red);"></span>Decline</span>
+      </div>
+      <div style="position:relative;height:280px;"><canvas id="momChart"></canvas></div>
+    </div>
+  </div>
+
+  <div class="rpt-footer">
+    <span>Monthly Active Users &middot; Unique Payers (C2B) &middot; August 2026 (Partial) &middot; Confidential</span>
+    <span><span class="mtn-tag">MoMo by MTN</span> &middot; Page 3 of 3</span>
+  </div>
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+/* ---- NAVIGATION ---- */
+function show(id,btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ---- DATA ---- */
+const mkts=['Nigeria','South Africa','Liberia','Congo-Brazzaville','Benin','Cote d\'Ivoire','Ghana','Cameroon','South Sudan','eSwatini','Uganda','Zambia','Rwanda'];
+const bud=[127000,38973,34623,59000,250020,305000,300000,417702,12000,30959,250000,320000,648065];
+const aug=[182,30231,32314,44125,151081,167567,304265,434669,6463,20095,221255,306665,705779];
+const mtd=[276,33675,31823,50962,154589,168631,320896,444846,10171,20782,213403,318574,713835];
+const may=[1776,32886,28287,46995,138413,184770,292931,398392,4806,20862,147000,288024,670010];
+const jun=[608,29143,29223,42607,142773,180967,287767,413454,5131,19482,199749,314946,682177];
+const jul=[234,31303,32238,36057,147059,173966,297200,422937,4781,19289,209162,297759,694765];
+const lastUpd=['29 Sep','30 Sep','30 Sep','30 Sep','30 Sep','30 Sep','28 Sep','30 Sep','29 Sep','30 Sep','28 Sep','30 Sep','29 Sep'];
+const GRP_AUG=2424691,GRP_MTD=2482463;
+
+const segCol={'Rwanda':'#1a7a3c','Cameroon':'#1a7a3c','Ghana':'#1a7a3c','Cote d\'Ivoire':'#b87d00','Benin':'#b87d00','Nigeria':'#e53935','Zambia':'#e53935','Liberia':'#e53935','Uganda':'#e53935'};
+const f=n=>n.toLocaleString('en-US');
+const pct=(a,b)=>((b-a)/a*100).toFixed(1);
+const achPct=(v,b)=>Math.round(v/b*100);
+
+/* ---- SPARKLINE ---- */
+function spark(data){
+  const W=56,H=22,P=3,mn=Math.min(...data),mx=Math.max(...data),rng=mx-mn||1;
+  const pts=data.map((v,i)=>{const x=P+(i/(data.length-1))*(W-P*2);const y=H-P-((v-mn)/rng)*(H-P*2);return x.toFixed(1)+','+y.toFixed(1);});
+  const col=data[data.length-1]>=data[data.length-2]?'#1a7a3c':'#e53935';
+  const[lx,ly]=pts[pts.length-1].split(',');
+  return`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" style="overflow:visible"><polyline points="${pts.join(' ')}" fill="none" stroke="${col}" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/><circle cx="${lx}" cy="${ly}" r="2.5" fill="${col}"/></svg>`;
+}
+
+/* ---- TAB 1 TABLE ---- */
+const ranked=mkts.map((m,i)=>({m,i})).sort((a,b)=>mtd[b.i]-mtd[a.i]);
+const tbody=document.getElementById('t1body');
+ranked.forEach((row,ri)=>{
+  const i=row.i;
+  const a=achPct(mtd[i],bud[i]);
+  const diff=mtd[i]-aug[i];
+  const p=parseFloat(pct(aug[i],mtd[i]));
+  const above=a>=100;
+  const pip=segCol[mkts[i]]||'#b0b8c8';
+  const achClass=a>=100?'ach-ok':a>=80?'ach-md':'ach-lo';
+  const isSudan=mkts[i]==='South Sudan';
+  const tr=document.createElement('tr');
+  tr.innerHTML=`
+    <td>${above?'<span class="rank-s">&#9733;</span>':`<span class="rank-n">${ri+1}</span>`}&nbsp;<span class="seg-pip" style="background:${pip}"></span><span class="mkt-name">${mkts[i]}</span>${isSudan?'<span class="val-badge">Validate</span>':''}<span class="mkt-date">${lastUpd[i]}</span></td>
+    <td style="text-align:center;">${spark([may[i],jun[i],jul[i],aug[i],mtd[i]])}</td>
+    <td class="col-base">${f(aug[i])}</td>
+    <td style="font-weight:600;color:${mtd[i]>aug[i]?'var(--green)':mtd[i]<aug[i]?'var(--red)':'var(--navy)'};">${f(mtd[i])}</td>
+    <td class="${p>=0?'up':'dn'}">${p>=0?'+':''}${p}%</td>
+    <td><span class="${achClass}">${a}%</span></td>`;
+  tbody.appendChild(tr);
+});
+const totRow=document.createElement('tr');totRow.className='tot-row';
+const gp=parseFloat(pct(GRP_AUG,GRP_MTD));
+totRow.innerHTML=`<td colspan="2">Group total</td><td class="col-base">${f(GRP_AUG)}</td><td class="up">${f(GRP_MTD)}</td><td class="up">+${gp}%</td><td><span class="ach-md">89%</span></td>`;
+tbody.appendChild(totRow);
+
+/* ---- IMPACT ---- */
+const impacts=mkts.map((m,i)=>({m,d:mtd[i]-aug[i],p:parseFloat(pct(aug[i],mtd[i]))}));
+const posHTML=impacts.filter(x=>x.d>0).sort((a,b)=>b.d-a.d).map(x=>`<div class="impact-row pos"><span class="impact-mkt">${x.m}</span><span class="impact-val pos">+${f(x.d)}<span class="impact-pct">(+${x.p}%)</span></span></div>`).join('');
+const negHTML=impacts.filter(x=>x.d<0).sort((a,b)=>a.d-b.d).map(x=>`<div class="impact-row neg"><span class="impact-mkt">${x.m}</span><span class="impact-val neg">${f(x.d)}<span class="impact-pct">(${x.p}%)</span></span></div>`).join('');
+document.getElementById('posImpact').innerHTML=posHTML;
+document.getElementById('negImpact').innerHTML=negHTML;
+
+/* ---- TOP 5 CONTRIB ---- */
+const top5=mkts.map((m,i)=>({m,v:mtd[i],p:(mtd[i]/GRP_MTD*100).toFixed(1)})).sort((a,b)=>b.v-a.v).slice(0,5);
+const fills=['#0A1628','#FFCB00','#0A1628','#FFCB00','#0A1628'];
+const txts=['#FFCB00','#0A1628','#FFCB00','#0A1628','#FFCB00'];
+document.getElementById('contrib').innerHTML=top5.map((d,i)=>{
+  const w=(parseFloat(d.p)/parseFloat(top5[0].p)*100).toFixed(0);
+  return`<div class="contrib-row"><div class="contrib-name">${i===0?'&#9733; '+d.m:d.m}</div><div class="contrib-wrap"><div class="contrib-fill" style="width:${w}%;background:${fills[i]};"><span style="font-size:11px;font-weight:600;color:${txts[i]};">${d.p}%</span></div></div></div>`;
+}).join('');
+
+/* ---- TAB 3: UNIQUE PAYERS ---- */
+const upNames=['Nigeria','South Africa','Liberia','Congo-Brazzaville','Benin','Cote d\'Ivoire','Ghana','Cameroon','eSwatini','Uganda','Zambia','Rwanda'];
+const upJul=[338,246811,43937,517621,1149256,166847,3457335,2046375,157689,2439134,88972,4242291];
+const upAug=[232,null,39655,531023,1167989,175164,null,2105289,163855,2647906,92095,null];
+const upPend=['','Pending','','','','','Pending validation','','','','','Pending'];
+
+function fmtU(n){if(n==null)return'';if(n>=1e6)return(n/1e6).toFixed(2)+'M';if(n>=1e3)return(n/1e3).toFixed(1)+'K';return n.toLocaleString();}
+
+const upSorted=upNames.map((n,i)=>({n,i})).sort((a,b)=>upJul[b.i]-upJul[a.i]);
+const upBody=document.getElementById('upBody');
+upSorted.forEach(({n,i})=>{
+  const jul=upJul[i],aug=upAug[i];
+  const momStr=aug!=null?`<span class="${aug>=jul?'up':'dn'}">${parseFloat(pct(jul,aug))>=0?'+':''}${parseFloat(pct(jul,aug))}%</span>`:'<span class="mu">—</span>';
+  const augDisp=aug!=null?fmtU(aug):(upPend[i].includes('validation')?`<span class="val-badge">${upPend[i]}</span>`:`<span class="pend-badge">${upPend[i]}</span>`);
+  const tr=document.createElement('tr');
+  tr.innerHTML=`<td><span class="mkt-name">${n}</span></td><td>${fmtU(jul)}</td><td>${augDisp}</td><td>${momStr}</td>`;
+  upBody.appendChild(tr);
+});
+const jul12=upJul.reduce((a,b)=>a+b,0);
+const aug9=upAug.reduce((a,b)=>a+(b||0),0);
+const jul9=upJul.filter((_,i)=>upAug[i]!=null).reduce((a,b)=>a+b,0);
+const totU=document.createElement('tr');totU.className='tot-row';
+totU.innerHTML=`<td>Group (12 mkts)</td><td>${(jul12/1e6).toFixed(2)}M</td><td><span style="font-size:10px;color:var(--muted);">9 mkts: ${(aug9/1e6).toFixed(2)}M</span></td><td class="up">+${parseFloat(pct(jul9,aug9)).toFixed(1)}%</td>`;
+upBody.appendChild(totU);
+
+/* ---- TREND CHART ---- */
+new Chart(document.getElementById('trendChart'),{
+  type:'line',
+  data:{
+    labels:['Jan','Feb','Mar','Apr','May','Jun','Jul'],
+    datasets:[{data:[13091171,13349927,14232356,14269323,14557132,14356534,14556606],borderWidth:2.5,pointRadius:[3,3,3,3,3,3,5],pointBackgroundColor:'#1a7a3c',pointBorderColor:'#1a7a3c',fill:false,tension:0.3,borderColor:'#1a7a3c'}]
+  },
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>(ctx.raw/1e6).toFixed(2)+'M'}}},scales:{x:{grid:{display:false},ticks:{font:{size:10},color:'#8899bb'}},y:{grid:{color:'rgba(10,22,40,.05)'},ticks:{font:{size:10},color:'#8899bb',callback:v=>(v/1e6).toFixed(1)+'M'},min:12000000,max:15500000}}}
+});
+
+/* ---- MOM BAR CHART ---- */
+const momData=upNames.map((n,i)=>({n,v:upAug[i]!=null?parseFloat(pct(upJul[i],upAug[i])):null})).filter(x=>x.v!=null).sort((a,b)=>b.v-a.v);
+new Chart(document.getElementById('momChart'),{
+  type:'bar',
+  data:{labels:momData.map(x=>x.n),datasets:[{data:momData.map(x=>x.v),backgroundColor:momData.map(x=>x.v>=0?'#1a7a3c':'#e53935'),borderRadius:2}]},
+  options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>(ctx.raw>=0?'+':'')+ctx.raw+'%'}}},scales:{x:{grid:{color:'rgba(10,22,40,.05)'},ticks:{font:{size:10},color:'#8899bb',callback:v=>v+'%'}},y:{grid:{display:false},ticks:{font:{size:10},color:'#243751'}}}}
+});
+</script>
+</body>
+</html>
