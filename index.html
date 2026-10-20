@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MTN MoMo | MAB Dashboard | October 2026</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#f0f2f5;color:#1a1a2e;}
+
+.header{background:#0A1628;color:#fff;padding:20px 32px;display:flex;align-items:center;justify-content:space-between;}
+.header-logo{font-size:26px;font-weight:800;color:#FFCB00;letter-spacing:-0.5px;line-height:1;}
+.header-title{font-size:15px;font-weight:600;color:#fff;margin-top:2px;}
+.header-sub{font-size:12px;color:#7a8fa6;margin-top:1px;}
+.header-period{font-size:24px;font-weight:700;color:#FFCB00;text-align:right;line-height:1.1;}
+.header-type{font-size:11px;color:#7a8fa6;text-align:right;margin-top:2px;}
+
+.tabs{background:#091422;padding:0 32px;display:flex;gap:2px;border-bottom:1px solid #1a2e47;}
+.tab-btn{padding:11px 26px;border:none;background:transparent;color:#7a8fa6;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;border-bottom:3px solid transparent;transition:all 0.15s;letter-spacing:0.3px;}
+.tab-btn:hover{color:#FFCB00;}
+.tab-btn.active{color:#FFCB00;border-bottom-color:#FFCB00;}
+
+.tab-content{display:none;padding:24px 32px;}
+.tab-content.active{display:block;}
+
+.cards{display:flex;gap:14px;margin-bottom:22px;flex-wrap:wrap;}
+.card{background:#fff;border-radius:10px;padding:18px 22px;flex:1;min-width:170px;box-shadow:0 1px 4px rgba(0,0,0,0.07);border-left:4px solid #d1d5db;}
+.card.c-yellow{border-left-color:#FFCB00;}
+.card.c-green{border-left-color:#22c55e;}
+.card.c-amber{border-left-color:#f59e0b;}
+.card.c-red{border-left-color:#ef4444;}
+.card.c-navy{border-left-color:#0A1628;}
+.card-label{font-size:10px;color:#6b7280;text-transform:uppercase;letter-spacing:0.9px;font-weight:700;}
+.card-value{font-size:26px;font-weight:700;color:#0A1628;margin:5px 0 3px;line-height:1;}
+.card-sub{font-size:11px;color:#6b7280;}
+
+.table-wrap{background:#fff;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,0.07);overflow:hidden;}
+table{width:100%;border-collapse:collapse;font-size:13px;}
+thead th{background:#0A1628;color:#FFCB00;font-weight:600;padding:11px 14px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:0.6px;white-space:nowrap;}
+thead th.r{text-align:right;}
+tbody tr{border-bottom:1px solid #f3f4f6;transition:background 0.12s;}
+tbody tr:hover{background:#f9fafb;}
+tbody tr:last-child{border-bottom:none;}
+td{padding:10px 14px;vertical-align:middle;}
+td.r{text-align:right;}
+td.mono{font-variant-numeric:tabular-nums;}
+
+.market-cell{display:flex;align-items:center;gap:7px;}
+.seg-pip{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.s-scale{background:#22c55e;}
+.s-build{background:#f59e0b;}
+.s-recovery{background:#ef4444;}
+.s-other{background:#9ca3af;}
+.market-name{font-weight:600;color:#0A1628;}
+.star{color:#FFCB00;font-size:14px;margin-left:1px;vertical-align:middle;}
+
+.bbar-wrap{display:flex;align-items:center;gap:8px;}
+.bbar-bg{width:68px;height:6px;background:#e5e7eb;border-radius:3px;overflow:hidden;flex-shrink:0;}
+.bbar-fill{height:100%;border-radius:3px;transition:width 0.4s;}
+.bf-green{background:#22c55e;}
+.bf-amber{background:#f59e0b;}
+.bf-red{background:#ef4444;}
+.bbar-pct{font-size:12px;font-weight:700;color:#0A1628;min-width:44px;text-align:right;}
+
+.updated{font-size:11px;color:#9ca3af;white-space:nowrap;}
+
+.pos{color:#16a34a;font-weight:700;}
+.neg{color:#dc2626;font-weight:700;}
+.flat{color:#6b7280;font-weight:500;}
+
+.vflag{display:inline-block;background:#fef9c3;color:#854d0e;font-size:9px;font-weight:700;padding:1px 5px;border-radius:3px;margin-left:4px;text-transform:uppercase;letter-spacing:0.2px;vertical-align:middle;border:1px solid #fde047;}
+.pending-badge{display:inline-block;background:#f3f4f6;color:#6b7280;font-size:10px;font-weight:600;padding:2px 8px;border-radius:4px;}
+
+.chart-wrap{background:#fff;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,0.07);padding:20px 24px;margin-bottom:22px;}
+.chart-title{font-size:11px;font-weight:700;color:#6b7280;margin-bottom:16px;text-transform:uppercase;letter-spacing:0.8px;}
+.chart-canvas-wrap{position:relative;height:280px;}
+
+.note{background:#fffbeb;border:1px solid #fde68a;border-radius:7px;padding:10px 14px;font-size:11px;color:#92400e;margin-bottom:18px;line-height:1.5;}
+
+tr.grp-row{background:#eef2f8 !important;}
+tr.grp-row td{font-weight:700;color:#0A1628;border-top:2px solid #d1d5db;}
+
+.footer{text-align:center;padding:20px;font-size:11px;color:#9ca3af;}
+
+.sparkline-cell{min-width:92px;}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <div class="header-logo">MTN MoMo</div>
+    <div class="header-title">Monthly Active Base (MAB) Performance</div>
+    <div class="header-sub">MTN Group Fintech &nbsp;|&nbsp; Africa Markets</div>
+  </div>
+  <div>
+    <div class="header-period">October 2026</div>
+    <div class="header-type">MTD Report</div>
+  </div>
+</div>
+
+<div class="tabs">
+  <button class="tab-btn active" onclick="showTab('mtd',this)">MTD Performance</button>
+  <button class="tab-btn" onclick="showTab('mom',this)">Month on Month</button>
+  <button class="tab-btn" onclick="showTab('up',this)">Unique Payers</button>
+</div>
+
+<!-- TAB 1: MTD -->
+<div id="tab-mtd" class="tab-content active">
+  <div class="cards">
+    <div class="card c-yellow">
+      <div class="card-label">Group MTD</div>
+      <div class="card-value">2,528,274</div>
+      <div class="card-sub">Sep-26 close: 2,474,420</div>
+    </div>
+    <div class="card c-green">
+      <div class="card-label">MTD vs Sep Close</div>
+      <div class="card-value">+2.2%</div>
+      <div class="card-sub">+53,854 net adds MTD</div>
+    </div>
+    <div class="card c-amber">
+      <div class="card-label">vs Annual Budget</div>
+      <div class="card-value">90.5%</div>
+      <div class="card-sub">Budget: 2,793,342</div>
+    </div>
+    <div class="card c-navy">
+      <div class="card-label">Markets at Budget</div>
+      <div class="card-value">4 of 13</div>
+      <div class="card-sub">Liberia, Ghana, Cameroon, Rwanda</div>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Market</th>
+          <th class="r">Sep '26 Final</th>
+          <th class="r">Oct '26 MTD</th>
+          <th>vs Budget</th>
+          <th>Jun&nbsp;-&nbsp;Oct Trend</th>
+          <th>Last Updated</th>
+        </tr>
+      </thead>
+      <tbody id="mtd-tbody"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- TAB 2: Month on Month -->
+<div id="tab-mom" class="tab-content">
+  <div class="cards">
+    <div class="card c-navy">
+      <div class="card-label">Aug '26 Final</div>
+      <div class="card-value">2,424,691</div>
+      <div class="card-sub">Prior month close</div>
+    </div>
+    <div class="card c-yellow">
+      <div class="card-label">Sep '26 Final</div>
+      <div class="card-value">2,474,420</div>
+      <div class="card-sub">Current month close</div>
+    </div>
+    <div class="card c-green">
+      <div class="card-label">Group MoM</div>
+      <div class="card-value">+2.1%</div>
+      <div class="card-sub">+49,729 net adds</div>
+    </div>
+    <div class="card c-amber">
+      <div class="card-label">Markets Growing</div>
+      <div class="card-value">10 of 13</div>
+      <div class="card-sub">1 flat (RSA), 2 declining</div>
+    </div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">MoM % Change by Market (Aug 2026 to Sep 2026)</div>
+    <div class="chart-canvas-wrap"><canvas id="momChart"></canvas></div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Market</th>
+          <th class="r">Aug '26 Final</th>
+          <th class="r">Sep '26 Final</th>
+          <th class="r">Change</th>
+          <th class="r">MoM %</th>
+        </tr>
+      </thead>
+      <tbody id="mom-tbody"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- TAB 3: Unique Payers -->
+<div id="tab-up" class="tab-content">
+  <div class="note">
+    Congo-Brazzaville, Liberia, and Rwanda Sep-26 data is pending and displayed as such below. Ghana Aug-26 remains excluded pending validation review (anomalous 82% jump flagged). South Sudan is not reported in Unique Payers.
+  </div>
+
+  <div class="cards">
+    <div class="card c-yellow">
+      <div class="card-label">Sep '26 Group UP (partial)</div>
+      <div class="card-value">10,679,995</div>
+      <div class="card-sub">9 of 12 markets reported</div>
+    </div>
+    <div class="card c-amber">
+      <div class="card-label">Markets Pending</div>
+      <div class="card-value">3 of 12</div>
+      <div class="card-sub">Congo-B, Liberia, Rwanda</div>
+    </div>
+    <div class="card c-green">
+      <div class="card-label">Largest UP Market</div>
+      <div class="card-value">Ghana</div>
+      <div class="card-sub">3,525,566 unique payers</div>
+    </div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Group Unique Payers Trend (Jan to Sep 2026)</div>
+    <div class="chart-canvas-wrap"><canvas id="upTrendChart"></canvas></div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Sep '26 Unique Payers by Market (available markets only)</div>
+    <div class="chart-canvas-wrap" style="height:230px;"><canvas id="upBarChart"></canvas></div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Market</th>
+          <th class="r">Aug '26</th>
+          <th class="r">Sep '26</th>
+          <th class="r">MoM Change</th>
+        </tr>
+      </thead>
+      <tbody id="up-tbody"></tbody>
+    </table>
+  </div>
+</div>
+
+<div class="footer">
+  MTN MoMo MAB Dashboard &nbsp;|&nbsp; October 2026 &nbsp;|&nbsp; Data sourced from OpCo reporting &nbsp;|&nbsp; MTN Group Fintech
+</div>
+
+<script>
+// ============================================================
+// DATA
+// ============================================================
+const MARKETS = [
+  'Nigeria','South Africa','Liberia','Congo-Brazzaville','Benin',
+  "Cote d'Ivoire",'Ghana','Cameroon','South Sudan','eSwatini',
+  'Uganda','Zambia','Rwanda'
+];
+
+// Annual budgets
+const BUD = [127000,38973,34623,59000,250020,305000,300000,417702,12000,30959,250000,320000,648065];
+// Sep-26 final close
+const SEP = [272,30231,31823,50962,154589,168631,323818,444846,10241,20782,205017,318574,714634];
+// Oct-26 MTD
+const MTD = [118,33675,35403,56165,155868,166314,327074,457029,11563,21077,231875,305437,726676];
+// Sparkline source arrays (Jun, Jul, Aug, Sep, Oct MTD)
+const JUN = [608,29143,29223,42607,142773,180967,287767,413454,5131,19482,199749,314946,682177];
+const JUL = [234,31303,32238,36057,147059,173966,297200,422937,4781,19289,209162,297759,694765];
+const AUG = [182,30231,32314,44125,151081,167567,304265,434669,6463,20095,221255,306665,705779];
+// Aug final (same as AUG for this cycle)
+const AUG_FINAL = [182,30231,32314,44125,151081,167567,304265,434669,6463,20095,221255,306665,705779];
+
+const LAST_UPD = [
+  '18-Oct','30-Sep','18-Oct','18-Oct','18-Oct',
+  '16-Oct','16-Oct','18-Oct','15-Oct','18-Oct',
+  '17-Oct','18-Oct','18-Oct'
+];
+
+// Segment: 0=Scale(green) 1=Build(amber) 2=Recovery(red) 3=Other(grey)
+// NI=Recovery, RSA=Other, LI=Recovery, CB=Other, BE=Build, CDI=Build,
+// GH=Scale, CM=Scale, SS=Other, ES=Other, UG=Recovery, ZA=Recovery, RW=Scale
+const SEG = [2,3,2,3,1,1,0,0,3,3,2,2,0];
+const SEG_CLS = ['s-scale','s-build','s-recovery','s-other'];
+const SEG_LBL = ['Scale','Build','Recovery',''];
+
+// Unique Payers (Sep-26): null = pending; index 8 (South Sudan) excluded from UP tab
+const UP_SEP = [8,242624,null,null,1188595,197520,3525566,2236925,null,164043,3026538,98176,null];
+// Aug-26 UP (from prior cycle)
+const UP_AUG = [232,null,39655,531023,1167989,175164,null,2105289,null,163855,2647906,92095,null];
+// Group UP Jan-Jul (full group)
+const GRP_UP_JAN_JUL = [13091171,13349927,14232356,14269323,14557132,14356534,14556606];
+// Sep-26 partial group: 9 available markets
+const GRP_UP_SEP_PARTIAL = 10679995;
+
+// ============================================================
+// HELPERS
+// ============================================================
+function showTab(id, btn) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+function fmtN(n) {
+  if (n == null || n === '') return '--';
+  return Number(n).toLocaleString('en-US');
+}
+
+function momPct(a, b) {
+  if (!b) return null;
+  return ((a - b) / b) * 100;
+}
+
+function budBar(pct) {
+  const w = Math.min(Math.abs(pct), 100);
+  const cls = pct >= 100 ? 'bf-green' : pct >= 80 ? 'bf-amber' : 'bf-red';
+  return `<div class="bbar-wrap">
+    <div class="bbar-bg"><div class="bbar-fill ${cls}" style="width:${w}%"></div></div>
+    <span class="bbar-pct">${pct.toFixed(1)}%</span>
+  </div>`;
+}
+
+function sparkSVG(vals) {
+  const W = 90, H = 28, P = 3;
+  const valid = vals.filter(v => v != null && !isNaN(v));
+  if (valid.length < 2) return `<svg width="${W}" height="${H}"><text x="4" y="18" font-size="10" fill="#ccc">N/A</text></svg>`;
+  const mn = Math.min(...valid), mx = Math.max(...valid);
+  const rng = mx - mn || 1;
+  const pts = vals.map((v, i) => {
+    const x = P + (i / (vals.length - 1)) * (W - 2 * P);
+    const y = H - P - ((v - mn) / rng) * (H - 2 * P);
+    return `${x.toFixed(1)},${y.toFixed(1)}`;
+  });
+  const lastPt = pts[pts.length - 1].split(',');
+  const color = valid[valid.length - 1] >= valid[0] ? '#22c55e' : '#ef4444';
+  return `<svg width="${W}" height="${H}" style="overflow:visible">
+    <polyline points="${pts.join(' ')}" fill="none" stroke="${color}" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="${lastPt[0]}" cy="${lastPt[1]}" r="3" fill="#FFCB00" stroke="${color}" stroke-width="1.5"/>
+  </svg>`;
+}
+
+// ============================================================
+// TAB 1: MTD TABLE
+// ============================================================
+(function buildMtd() {
+  const tbody = document.getElementById('mtd-tbody');
+  let gMtd = 0, gSep = 0, gBud = 0;
+
+  MARKETS.forEach((m, i) => {
+    gMtd += MTD[i]; gSep += SEP[i]; gBud += BUD[i];
+    const bp = (MTD[i] / BUD[i]) * 100;
+    const star = bp >= 100 ? '<span class="star">&#9733;</span>' : '';
+    const spark = sparkSVG([JUN[i], JUL[i], AUG[i], SEP[i], MTD[i]]);
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><div class="market-cell">
+        <span class="seg-pip ${SEG_CLS[SEG[i]]}" title="${SEG_LBL[SEG[i]] || 'Other'}"></span>
+        <span class="market-name">${m}</span>${star}
+      </div></td>
+      <td class="r mono">${fmtN(SEP[i])}</td>
+      <td class="r mono">${fmtN(MTD[i])}</td>
+      <td>${budBar(bp)}</td>
+      <td class="sparkline-cell">${spark}</td>
+      <td><span class="updated">${LAST_UPD[i]}</span></td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+  // Group row
+  const gBp = (gMtd / gBud) * 100;
+  const gTr = document.createElement('tr');
+  gTr.className = 'grp-row';
+  gTr.innerHTML = `
+    <td><div class="market-cell"><span class="market-name">GROUP TOTAL</span></div></td>
+    <td class="r mono">${fmtN(gSep)}</td>
+    <td class="r mono">${fmtN(gMtd)}</td>
+    <td>${budBar(gBp)}</td>
+    <td></td><td></td>
+  `;
+  tbody.appendChild(gTr);
+})();
+
+// ============================================================
+// TAB 2: MOM TABLE + CHART
+// ============================================================
+(function buildMom() {
+  const tbody = document.getElementById('mom-tbody');
+  const chartLabels = [], chartVals = [], chartColors = [];
+
+  MARKETS.forEach((m, i) => {
+    const chg = SEP[i] - AUG_FINAL[i];
+    const cp = momPct(SEP[i], AUG_FINAL[i]);
+    const isFlat = cp === 0;
+    const validate = (i === 0 || i === 8); // Nigeria small base, South Sudan small base
+
+    // For chart - short labels
+    const lbl = m === 'Congo-Brazzaville' ? 'Congo-B' :
+                m === "Cote d'Ivoire" ? 'CDI' :
+                m === 'South Sudan' ? 'S.Sudan' :
+                m === 'South Africa' ? 'RSA' : m;
+    chartLabels.push(lbl);
+    chartVals.push(parseFloat((cp || 0).toFixed(2)));
+    chartColors.push(isFlat ? '#9ca3af' : cp > 0 ? '#22c55e' : '#ef4444');
+
+    let momHtml;
+    if (isFlat) {
+      momHtml = '<span class="flat">0.0%</span>';
+    } else if (cp > 0) {
+      momHtml = `<span class="pos">+${cp.toFixed(1)}%</span>`;
+      if (validate) momHtml += '<span class="vflag">validate</span>';
+    } else {
+      momHtml = `<span class="neg">${cp.toFixed(1)}%</span>`;
+    }
+
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><div class="market-cell">
+        <span class="seg-pip ${SEG_CLS[SEG[i]]}"></span>
+        <span class="market-name">${m}</span>
+      </div></td>
+      <td class="r mono">${fmtN(AUG_FINAL[i])}</td>
+      <td class="r mono">${fmtN(SEP[i])}</td>
+      <td class="r mono">${chg >= 0 ? '+' : ''}${fmtN(chg)}</td>
+      <td class="r">${momHtml}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+  // Group row
+  const gAug = AUG_FINAL.reduce((a, v) => a + v, 0);
+  const gSep2 = SEP.reduce((a, v) => a + v, 0);
+  const gChg = gSep2 - gAug;
+  const gCp = momPct(gSep2, gAug);
+  const gTr = document.createElement('tr');
+  gTr.className = 'grp-row';
+  gTr.innerHTML = `
+    <td><div class="market-cell"><span class="market-name">GROUP TOTAL</span></div></td>
+    <td class="r mono">${fmtN(gAug)}</td>
+    <td class="r mono">${fmtN(gSep2)}</td>
+    <td class="r mono">+${fmtN(gChg)}</td>
+    <td class="r"><span class="pos">+${gCp.toFixed(1)}%</span></td>
+  `;
+  tbody.appendChild(gTr);
+
+  // Chart
+  Chart.defaults.font.family = "'Segoe UI', sans-serif";
+  const ctx = document.getElementById('momChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: chartLabels,
+      datasets: [{
+        data: chartVals,
+        backgroundColor: chartColors,
+        borderRadius: 4,
+        borderSkipped: false
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: ctx => `${ctx.raw >= 0 ? '+' : ''}${Number(ctx.raw).toFixed(1)}%`
+          }
+        }
+      },
+      scales: {
+        x: { grid: { display: false }, ticks: { font: { size: 11 } } },
+        y: {
+          grid: { color: '#f3f4f6' },
+          ticks: {
+            callback: v => `${v >= 0 ? '+' : ''}${v}%`,
+            font: { size: 11 }
+          }
+        }
+      }
+    }
+  });
+})();
+
+// ============================================================
+// TAB 3: UNIQUE PAYERS TABLE + CHARTS
+// ============================================================
+(function buildUp() {
+  const tbody = document.getElementById('up-tbody');
+
+  MARKETS.forEach((m, i) => {
+    if (i === 8) return; // Skip South Sudan
+    const us = UP_SEP[i];
+    const ua = UP_AUG[i];
+
+    let sepCell = us === null
+      ? '<span class="pending-badge">Pending</span>'
+      : `<span class="mono">${fmtN(us)}</span>`;
+
+    let augCell = ua === null
+      ? '<span class="pending-badge">Pending</span>'
+      : `<span class="mono">${fmtN(ua)}</span>`;
+
+    let momCell = '--';
+    if (us !== null && ua !== null) {
+      const cp = momPct(us, ua);
+      if (cp > 0) momCell = `<span class="pos">+${cp.toFixed(1)}%</span>`;
+      else if (cp < 0) momCell = `<span class="neg">${cp.toFixed(1)}%</span>`;
+      else momCell = '<span class="flat">0.0%</span>';
+    } else if (us === null) {
+      momCell = '<span class="pending-badge">Pending</span>';
+    }
+
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><div class="market-cell">
+        <span class="seg-pip ${SEG_CLS[SEG[i]]}"></span>
+        <span class="market-name">${m}</span>
+      </div></td>
+      <td class="r">${augCell}</td>
+      <td class="r">${sepCell}</td>
+      <td class="r">${momCell}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+  // Group UP trend chart (Jan-Jul full, Aug null due to incomplete, Sep partial)
+  const upTrendLabels = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep'];
+  const upTrendData = [...GRP_UP_JAN_JUL, null, GRP_UP_SEP_PARTIAL];
+
+  const tCtx = document.getElementById('upTrendChart').getContext('2d');
+  new Chart(tCtx, {
+    type: 'line',
+    data: {
+      labels: upTrendLabels,
+      datasets: [{
+        label: 'Group Unique Payers',
+        data: upTrendData,
+        borderColor: '#0A1628',
+        backgroundColor: 'rgba(10,22,40,0.07)',
+        pointBackgroundColor: upTrendData.map((v, i) => i === 8 ? '#FFCB00' : '#0A1628'),
+        pointBorderColor: '#0A1628',
+        pointRadius: 5,
+        fill: true,
+        tension: 0.35,
+        spanGaps: false
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: ctx => {
+              if (ctx.raw == null) return 'No data (incomplete)';
+              const suf = ctx.dataIndex === 8 ? ' (9 of 12 markets)' : '';
+              return `${Math.round(ctx.raw).toLocaleString('en-US')}${suf}`;
+            }
+          }
+        }
+      },
+      scales: {
+        x: { grid: { display: false }, ticks: { font: { size: 11 } } },
+        y: {
+          grid: { color: '#f3f4f6' },
+          ticks: {
+            callback: v => v >= 1000000 ? (v / 1000000).toFixed(1) + 'M' : v.toLocaleString('en-US'),
+            font: { size: 11 }
+          }
+        }
+      }
+    }
+  });
+
+  // UP bar chart (Sep-26 available markets, horizontal)
+  const barLabels = [], barData = [], barColors = [];
+  const segColors = ['#22c55e','#f59e0b','#ef4444','#9ca3af'];
+  MARKETS.forEach((m, i) => {
+    if (i === 8) return;
+    if (UP_SEP[i] !== null) {
+      const lbl = m === 'Congo-Brazzaville' ? 'Congo-B' :
+                  m === "Cote d'Ivoire" ? 'CDI' :
+                  m === 'South Africa' ? 'S.Africa' : m;
+      barLabels.push(lbl);
+      barData.push(UP_SEP[i]);
+      barColors.push(segColors[SEG[i]]);
+    }
+  });
+
+  const bCtx = document.getElementById('upBarChart').getContext('2d');
+  new Chart(bCtx, {
+    type: 'bar',
+    data: {
+      labels: barLabels,
+      datasets: [{
+        data: barData,
+        backgroundColor: barColors,
+        borderRadius: 4
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: ctx => ctx.raw.toLocaleString('en-US')
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: { color: '#f3f4f6' },
+          ticks: {
+            callback: v => v >= 1000000 ? (v / 1000000).toFixed(1) + 'M' : v >= 1000 ? (v / 1000).toFixed(0) + 'K' : v,
+            font: { size: 11 }
+          }
+        },
+        y: { grid: { display: false }, ticks: { font: { size: 11 } } }
+      }
+    }
+  });
+})();
+</script>
+</body>
+</html>
